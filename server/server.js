@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import databaseRouter from './routes/databaseRoute.js';
+import { createSchema } from './model/databaseSchema.js';
 
 const PORT = process.env.PORT || 8080;
 
@@ -19,6 +20,13 @@ app.use((err, req, res, next) => {
 });
 
 // * DATABASE INITIALIZATION
+createSchema()
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // * ROUTERS
 // ROOT PATH: /api/
