@@ -1,0 +1,43 @@
+@import './variables';
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+
+  gap: 1rem;
+
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+
+  font-family: 'Montserrat', sans-serif;
+
+  &__Header {
+    display: grid;
+    grid-template-columns: 1fr 0.75fr;
+    width: 100%;
+    height: 4rem;
+
+    &__Title {
+      font-size: 1.5rem;
+      align-self: center;
+      justify-self: start;
+    }
+    &__Links {
+      display: flex;
+      justify-content: space-around;
+      align-self: center;
+      gap: 2rem;
+      &__Link {
+        color: $neutral-100;
+      }
+    }
+  }
+}
+
+.currentpage {
+  color: $sky-400;
+  text-decoration: underline;
+}

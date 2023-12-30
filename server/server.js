@@ -1,4 +1,5 @@
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -8,6 +9,12 @@ import { createSchema } from './model/databaseSchema.js';
 const PORT = process.env.PORT || 8080;
 
 const app = express();
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // limit each IP to 5 requests per windowMs
+  message: 'Too many login attempts, please try again later.',
+});
 
 // * MIDDLEWARE
 app.use(express.json());
@@ -30,7 +37,7 @@ createSchema()
 
 // * ROUTERS
 // ROOT PATH: /api/
-app.use('/api', databaseRouter);
+app.use('/api', loginLimiter, databaseRouter);
 
 //* CONNECTION
 app.listen(PORT, () => {
