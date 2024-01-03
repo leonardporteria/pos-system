@@ -1,11 +1,14 @@
-import Auth from './components/auth/Auth';
+// import Auth from './components/auth/Auth';
+import Admin from './components/admin/Admin';
+
 import './App.scss';
 
 function App() {
   return (
     <div className='App'>
-      <h1>SnapShot Login</h1>
-      <Auth />
+      {/* <h1>SnapShot</h1> */}
+      {/* <Auth /> */}
+      <Admin />
     </div>
   );
 }

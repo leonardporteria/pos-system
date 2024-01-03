@@ -41,7 +41,7 @@ createSchema()
 
 // * ROUTERS
 // ROOT PATH: /api/
-app.use('/api', limiter, databaseRouter);
+app.use('/api', databaseRouter);
 
 //* CONNECTION
 app.listen(PORT, () => {
