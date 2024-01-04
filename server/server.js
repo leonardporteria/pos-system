@@ -4,7 +4,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // * IMPORTS
-import databaseRouter from './routes/databaseRoute.js';
+import authRouter from './routes/authRoute.js';
+import cashierRouter from './routes/cashierRoute.js';
+import adminRouter from './routes/adminRoute.js';
+
 import { createSchema } from './model/databaseSchema.js';
 
 // * CONFIG
@@ -41,7 +44,9 @@ createSchema()
 
 // * ROUTERS
 // ROOT PATH: /api/
-app.use('/api', databaseRouter);
+app.use('/api', authRouter);
+app.use('/api', cashierRouter);
+app.use('/api', adminRouter);
 
 //* CONNECTION
 app.listen(PORT, () => {

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import Dashboard from './pages/Dashboard';
 import Sales from './pages/Sales';
 import Employees from './pages/Employees';
-import Products from './pages/Products';
+import Transactions from './pages/Transactions';
+import Suppliers from './pages/Suppliers';
 import Inventory from './pages/Inventory';
 
 import './Admin.scss';
@@ -16,7 +17,7 @@ const NavLink = ({ to, label }) => {
       to={to}
       className={match ? 'currentpage' : 'Admin__Sidebar__Links__Link'}
     >
-      {label}
+      <p>{label}</p>
     </Link>
   );
 };
@@ -43,8 +44,11 @@ const Admin = () => {
             <NavLink to='/admin/employees' label='Employees'>
               Employees
             </NavLink>
-            <NavLink to='/admin/products' label='Products'>
-              Products
+            <NavLink to='/admin/transactions' label='Transcations'>
+              Transcations
+            </NavLink>
+            <NavLink to='/admin/suppliers' label='Suppliers'>
+              Suppliers
             </NavLink>
             <NavLink to='/admin/inventory' label='Inventory'>
               Inventory
@@ -57,7 +61,8 @@ const Admin = () => {
           <Route path='/admin/dashboard' element={<Dashboard />} />
           <Route path='/admin/sales' element={<Sales />} />
           <Route path='/admin/employees' element={<Employees />} />
-          <Route path='/admin/products' element={<Products />} />
+          <Route path='/admin/transactions' element={<Transactions />} />
+          <Route path='/admin/suppliers' element={<Suppliers />} />
           <Route path='/admin/inventory' element={<Inventory />} />
         </Routes>
       </BrowserRouter>
