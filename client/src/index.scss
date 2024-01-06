@@ -8,7 +8,7 @@
 
   color-scheme: light dark;
   color: $neutral-800;
-  background-color: $slate-200;
+  background-color: $gray-50;
 
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -37,6 +37,7 @@ body {
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
 h1 {
