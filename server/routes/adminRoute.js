@@ -1,28 +1,29 @@
 import express from 'express';
 
+import { pool } from '../config/database.js';
+
+import insertSupplier from '../middleware/insertSupplier.js';
+import selectSuppliers from '../middleware/selectSuppliers.js';
+
 const adminRouter = express.Router();
 
 /**
  * ROOT PATH: /api
  */
-// GET all admin
-adminRouter.get('/admin', async (req, res) => {
-  res.json({ message: 'GET all admin' });
+// * GET ALL SUPPLIERS
+adminRouter.get('/admin/suppliers', selectSuppliers, (req, res) => {
+  res.json({
+    message: 'ALL SUPPLIERS SELECTED',
+  });
 });
 
-// GET one admin by id
-adminRouter.get('/admin/:id', (req, res) => {
-  res.json({ message: 'GET one admin' });
-});
-
-// POST new admin
-adminRouter.post('/admin', async (req, res) => {
-  res.json({ message: 'POST new admin' });
-});
-
-// UPDATE new admin
-adminRouter.patch('/admin', async (req, res) => {
-  res.json({ message: 'UPDATE new admin' });
+// * INSERT NEW SUPPLIER
+adminRouter.post('/admin/suppliers', insertSupplier, (req, res) => {
+  console.log(req.body);
+  res.json({
+    message: 'NEW SUPPLIER INSERTED',
+    insertedData: req.insertedData,
+  });
 });
 
 export default adminRouter;
