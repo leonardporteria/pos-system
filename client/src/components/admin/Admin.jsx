@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, Link, useMatch } from 'react-router-dom';
+import { Route, Routes, Link, useMatch } from 'react-router-dom';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
@@ -55,52 +55,50 @@ const Admin = () => {
 
   return (
     <div className='Admin'>
-      <BrowserRouter>
-        <nav className='Admin__Sidebar'>
-          <h1 className='Admin__Sidebar__Title'>SnapShop Admin Dashboard</h1>
+      <nav className='Admin__Sidebar'>
+        <h1 className='Admin__Sidebar__Title'>SnapShop Admin Dashboard</h1>
 
-          <div className='Admin__Sidebar__Links'>
-            <NavLink to='/admin/dashboard' label='Dashboard'>
-              Dashboard
-            </NavLink>
-            <NavLink to='/admin/sales' label='Sales'>
-              Sales
-            </NavLink>
-            <NavLink to='/admin/inventory' label='Inventory'>
-              Inventory
-            </NavLink>
-            <NavLink to='/admin/employees' label='Employees'>
-              Employees
-            </NavLink>
-            <NavLink to='/admin/transactions' label='Transcations'>
-              Transcations
-            </NavLink>
-            <NavLink to='/admin/suppliers' label='Suppliers'>
-              Suppliers
-            </NavLink>
-          </div>
-        </nav>
-
-        <div className='Admin__Dashboard'>
-          <div className='Admin__Dashboard__Utils'>
-            <h1>{location}</h1>
-            <input type='text' placeholder='Search' />
-            <select name='' id=''>
-              <option value=''>leonard porteria</option>
-            </select>
-            <p>Date: {currentDate}</p>
-          </div>
-          <Routes>
-            <Route path='/' element={<Dashboard />} />
-            <Route path='/admin/dashboard' element={<Dashboard />} />
-            <Route path='/admin/sales' element={<Sales />} />
-            <Route path='/admin/employees' element={<Employees />} />
-            <Route path='/admin/transactions' element={<Transactions />} />
-            <Route path='/admin/suppliers' element={<Suppliers />} />
-            <Route path='/admin/inventory' element={<Inventory />} />
-          </Routes>
+        <div className='Admin__Sidebar__Links'>
+          <NavLink to='/admin/dashboard' label='Dashboard'>
+            Dashboard
+          </NavLink>
+          <NavLink to='/admin/sales' label='Sales'>
+            Sales
+          </NavLink>
+          <NavLink to='/admin/inventory' label='Inventory'>
+            Inventory
+          </NavLink>
+          <NavLink to='/admin/employees' label='Employees'>
+            Employees
+          </NavLink>
+          <NavLink to='/admin/transactions' label='Transcations'>
+            Transcations
+          </NavLink>
+          <NavLink to='/admin/suppliers' label='Suppliers'>
+            Suppliers
+          </NavLink>
         </div>
-      </BrowserRouter>
+      </nav>
+
+      <div className='Admin__Dashboard'>
+        <div className='Admin__Dashboard__Utils'>
+          <h1>{location}</h1>
+          <input type='text' placeholder='Search' />
+          <select name='' id=''>
+            <option value=''>leonard porteria</option>
+          </select>
+          <p>Date: {currentDate}</p>
+        </div>
+        <Routes>
+          <Route path='dashboard' element={<Dashboard />} />
+          <Route path='sales' element={<Sales />} />
+          <Route path='employees' element={<Employees />} />
+          <Route path='transactions' element={<Transactions />} />
+          <Route path='suppliers' element={<Suppliers />} />
+          <Route path='inventory' element={<Inventory />} />
+          <Route path='*' element={<Dashboard />} />
+        </Routes>
+      </div>
     </div>
   );
 };
