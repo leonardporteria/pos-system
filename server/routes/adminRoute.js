@@ -10,20 +10,15 @@ const adminRouter = express.Router();
 /**
  * ROOT PATH: /api
  */
-// * GET ALL SUPPLIERS
-adminRouter.get('/admin/suppliers', selectSuppliers, (req, res) => {
-  res.json({
-    message: 'ALL SUPPLIERS SELECTED',
-  });
-});
 
+// ? SUPPLIERS
+// * GET ALL SUPPLIERS
+adminRouter.get('/admin/suppliers', selectSuppliers);
 // * INSERT NEW SUPPLIER
-adminRouter.post('/admin/suppliers', insertSupplier, (req, res) => {
-  console.log(req.body);
-  res.json({
-    message: 'NEW SUPPLIER INSERTED',
-    insertedData: req.insertedData,
-  });
-});
+adminRouter.post('/admin/suppliers', insertSupplier);
+// * EDIT ONE SUPPLIER
+adminRouter.put('/admin/suppliers/:supplier_id');
+// * DELETE ONE SUPPLIER
+adminRouter.delete('/admin/suppliers/:supplier_id');
 
 export default adminRouter;

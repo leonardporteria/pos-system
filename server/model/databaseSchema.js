@@ -15,6 +15,7 @@ const createQueries = [
       supplier_id CHAR(255) PRIMARY KEY,
       supplier_name VARCHAR(255) NOT NULL,
       supplier_contact VARCHAR(255) NOT NULL,
+      supplier_telephone VARCHAR(255) NOT NULL,
       supplier_address VARCHAR(255) NOT NULL,
       supplier_email VARCHAR(255) NOT NULL
   );`,

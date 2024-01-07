@@ -6,12 +6,12 @@ import './Suppliers.scss';
 // * ADD PRODUCTS MODAL
 const AddProducts = ({ onClose }) => {
   const [supplierData, setSupplierData] = useState({
-    id: '',
-    name: '',
-    contact: '',
-    tel: '',
-    email: '',
-    address: '',
+    supplier_id: '',
+    supplier_name: '',
+    supplier_contact: '',
+    supplier_telephone: '',
+    supplier_email: '',
+    supplier_address: '',
   });
 
   const handleChange = (e) => {
@@ -23,7 +23,14 @@ const AddProducts = ({ onClose }) => {
   };
 
   const handleConfirm = async () => {
-    const requiredFields = ['id', 'name', 'contact', 'tel', 'email', 'address'];
+    const requiredFields = [
+      'supplier_id',
+      'supplier_name',
+      'supplier_contact',
+      'supplier_telephone',
+      'supplier_email',
+      'supplier_address',
+    ];
     const hasEmptyField = requiredFields.some((field) => !supplierData[field]);
 
     if (hasEmptyField) {
@@ -60,47 +67,17 @@ const AddProducts = ({ onClose }) => {
       <div className='Suppliers__Add'>
         <p>Details</p>
         <p>id</p>
-        <input
-          type='text'
-          name='id'
-          value={supplierData.id}
-          onChange={handleChange}
-        />
+        <input type='text' name='supplier_id' onChange={handleChange} />
         <p>name</p>
-        <input
-          type='text'
-          name='name'
-          value={supplierData.name}
-          onChange={handleChange}
-        />
+        <input type='text' name='supplier_name' onChange={handleChange} />
         <p>contact #</p>
-        <input
-          type='text'
-          name='contact'
-          value={supplierData.contact}
-          onChange={handleChange}
-        />
+        <input type='text' name='supplier_contact' onChange={handleChange} />
         <p>tel #</p>
-        <input
-          type='text'
-          name='tel'
-          value={supplierData.tel}
-          onChange={handleChange}
-        />
+        <input type='text' name='supplier_telephone' onChange={handleChange} />
         <p>email</p>
-        <input
-          type='text'
-          name='email'
-          value={supplierData.email}
-          onChange={handleChange}
-        />
+        <input type='text' name='supplier_email' onChange={handleChange} />
         <p>address</p>
-        <input
-          type='text'
-          name='address'
-          value={supplierData.address}
-          onChange={handleChange}
-        />
+        <input type='text' name='supplier_address' onChange={handleChange} />
       </div>
       <button onClick={onClose}>Close</button>
       <button onClick={handleConfirm}>Confirm</button>
@@ -149,7 +126,7 @@ const Suppliers = () => {
         setSuppliersData(data);
       })
       .catch((error) => console.error('Error fetching data:', error));
-  }, []); // Empty dependency array ensures the effect runs once on mount
+  }, []);
 
   return (
     <div className='Suppliers'>
@@ -176,11 +153,11 @@ const Suppliers = () => {
                 <td>{supplier.supplier_id}</td>
                 <td>{supplier.supplier_name}</td>
                 <td>{supplier.supplier_contact}</td>
-                <td>{supplier.supplier_tel}</td>
+                <td>{supplier.supplier_telephone}</td>
                 <td>{supplier.supplier_email}</td>
                 <td>{supplier.supplier_address}</td>
                 <td>
-                  <button>Edit</button>
+                  <button onClick={toggleAddProductsModal}>Edit</button>
                 </td>
               </tr>
             ))}
