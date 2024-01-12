@@ -1,7 +1,10 @@
 import { pool } from '../config/database.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export default async function insertSupplier(req, res, next) {
   try {
+    await pool.query(`USE ${process.env.MYSQL_DATABASE};`);
     const {
       supplier_id,
       supplier_name,

@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS pos_system1;
-USE pos_system1;
+CREATE DATABASE IF NOT EXISTS pos_system;
+USE pos_system;
 
 CREATE TABLE IF NOT EXISTS roles (
     role_id CHAR(255) PRIMARY KEY,
@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS suppliers (
     supplier_id CHAR(255) PRIMARY KEY,
     supplier_name VARCHAR(255) NOT NULL,
     supplier_contact VARCHAR(255) NOT NULL,
+    supplier_telephone VARCHAR(255) NOT NULL,
     supplier_address VARCHAR(255) NOT NULL,
     supplier_email VARCHAR(255) NOT NULL
 );
