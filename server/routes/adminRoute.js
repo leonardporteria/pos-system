@@ -1,9 +1,6 @@
 import express from 'express';
 
-import { pool } from '../config/database.js';
-
-import insertSupplier from '../middleware/insertSupplier.js';
-import selectSuppliers from '../middleware/selectSuppliers.js';
+import { insertSupplier, selectSuppliers } from '../middleware/suppliers.js';
 
 const adminRouter = express.Router();
 

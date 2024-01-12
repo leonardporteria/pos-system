@@ -2,7 +2,21 @@ import { pool } from '../config/database.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export default async function insertSupplier(req, res, next) {
+export async function selectSuppliers(req, res, next) {
+  try {
+    const connection = await pool.getConnection();
+    const selectQuery = 'SELECT * FROM suppliers';
+    const [rows] = await connection.query(selectQuery);
+    connection.release();
+    console.log('Data fetched successfully:', rows);
+    res.json(rows);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+export async function insertSupplier(req, res, next) {
   try {
     await pool.query(`USE ${process.env.MYSQL_DATABASE};`);
     const {
