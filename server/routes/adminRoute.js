@@ -17,6 +17,20 @@ import {
 } from '../middleware/products.js';
 
 import {
+  insertProductCategory,
+  selectProductCategories,
+  updateProductCategory,
+  deleteProductCategory,
+} from '../middleware/productCategory.js';
+
+import {
+  insertRole,
+  selectRoles,
+  updateRole,
+  deleteRole,
+} from '../middleware/role.js';
+
+import {
   insertEmployee,
   selectEmployees,
   updateEmployee,
@@ -49,15 +63,41 @@ adminRouter.put('/admin/products/:product_id', updateProduct);
 // * DELETE ONE SUPPLIER
 adminRouter.delete('/admin/products/:product_id', deleteProduct);
 
+// ? PRODUCT CATEGORY
+// * GET ALL SUPPLIERS
+adminRouter.get('/admin/product_category', selectProductCategories);
+// * INSERT NEW SUPPLIER
+adminRouter.post('/admin/product_category', insertProductCategory);
+// * EDIT ONE SUPPLIER
+adminRouter.put(
+  '/admin/product_category/:product_category_id',
+  updateProductCategory
+);
+// * DELETE ONE SUPPLIER
+adminRouter.delete(
+  '/admin/product_category/:product_category_id',
+  deleteProductCategory
+);
+
 // ? EMPLOYEES
 // * GET ALL SUPPLIERS
 adminRouter.get('/admin/employees', selectEmployees);
 // * INSERT NEW SUPPLIER
 adminRouter.post('/admin/employees', insertEmployee);
 // * EDIT ONE SUPPLIER
-adminRouter.put('/admin/employees/:product_id', updateEmployee);
+adminRouter.put('/admin/employees/:employee_id', updateEmployee);
 // * DELETE ONE SUPPLIER
-adminRouter.delete('/admin/employees/:product_id', deleteEmployee);
+adminRouter.delete('/admin/employees/:employee_id', deleteEmployee);
+
+// ? ROLES
+// * GET ALL SUPPLIERS
+adminRouter.get('/admin/roles', selectRoles);
+// * INSERT NEW SUPPLIER
+adminRouter.post('/admin/roles', insertRole);
+// * EDIT ONE SUPPLIER
+adminRouter.put('/admin/roles/:role_id', updateRole);
+// * DELETE ONE SUPPLIER
+adminRouter.delete('/admin/roles/:role_id', deleteRole);
 
 // ?  ERROR HANDLER
 adminRouter.use(errorHandler);

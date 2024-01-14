@@ -1,13 +1,18 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import * as crud from '../utils/crudOperations.js';
+import {
+  selectData,
+  insertData,
+  updateData,
+  deleteData,
+} from '../utils/crudOperations.js';
 
 const tableName = 'suppliers';
 
 export async function selectSuppliers(req, res, next) {
   try {
-    const suppliers = await crud.selectData(tableName);
+    const suppliers = await selectData(tableName);
     res.json(suppliers);
   } catch (error) {
     next(error);
@@ -16,7 +21,7 @@ export async function selectSuppliers(req, res, next) {
 
 export async function insertSupplier(req, res, next) {
   try {
-    const result = await crud.insertData(tableName, req.body);
+    const result = await insertData(tableName, req.body);
     res.json({
       message: 'NEW SUPPLIER INSERTED',
       insertedData: result,
@@ -28,7 +33,7 @@ export async function insertSupplier(req, res, next) {
 
 export async function updateSupplier(req, res, next) {
   try {
-    const result = await crud.updateData(
+    const result = await updateData(
       tableName,
       req.body,
       'supplier_id',
@@ -47,7 +52,7 @@ export async function updateSupplier(req, res, next) {
 
 export async function deleteSupplier(req, res, next) {
   try {
-    const result = await crud.deleteData(
+    const result = await deleteData(
       tableName,
       'supplier_id',
       req.params.supplier_id
