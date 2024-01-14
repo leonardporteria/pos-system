@@ -3,7 +3,7 @@ USE pos_system;
 
 CREATE TABLE IF NOT EXISTS roles (
     role_id CHAR(255) PRIMARY KEY,
-    role_name BIGINT NOT NULL,
+    role_name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     permission VARCHAR(255) NOT NULL
 );
