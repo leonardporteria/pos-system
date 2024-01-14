@@ -1,6 +1,11 @@
 import express from 'express';
 
-import { insertSupplier, selectSuppliers } from '../middleware/suppliers.js';
+import {
+  insertSupplier,
+  selectSuppliers,
+  updateSupplier,
+  deleteSupplier,
+} from '../middleware/suppliers.js';
 
 const adminRouter = express.Router();
 
@@ -14,8 +19,8 @@ adminRouter.get('/admin/suppliers', selectSuppliers);
 // * INSERT NEW SUPPLIER
 adminRouter.post('/admin/suppliers', insertSupplier);
 // * EDIT ONE SUPPLIER
-adminRouter.put('/admin/suppliers/:supplier_id');
+adminRouter.put('/admin/suppliers/:supplier_id', updateSupplier);
 // * DELETE ONE SUPPLIER
-adminRouter.delete('/admin/suppliers/:supplier_id');
+adminRouter.delete('/admin/suppliers/:supplier_id', deleteSupplier);
 
 export default adminRouter;
