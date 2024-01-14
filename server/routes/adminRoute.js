@@ -51,13 +51,13 @@ adminRouter.delete('/admin/products/:product_id', deleteProduct);
 
 // ? EMPLOYEES
 // * GET ALL SUPPLIERS
-adminRouter.get('/admin/products', selectEmployees);
+adminRouter.get('/admin/employees', selectEmployees);
 // * INSERT NEW SUPPLIER
-adminRouter.post('/admin/products', insertEmployee);
+adminRouter.post('/admin/employees', insertEmployee);
 // * EDIT ONE SUPPLIER
-adminRouter.put('/admin/products/:product_id', updateEmployee);
+adminRouter.put('/admin/employees/:product_id', updateEmployee);
 // * DELETE ONE SUPPLIER
-adminRouter.delete('/admin/products/:product_id', deleteEmployee);
+adminRouter.delete('/admin/employees/:product_id', deleteEmployee);
 
 // ?  ERROR HANDLER
 adminRouter.use(errorHandler);
