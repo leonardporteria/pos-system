@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import './Suppliers.scss';
 
-// * ADD PRODUCTS MODAL
-const AddProducts = ({ onClose }) => {
+// * ADD SUPPLIERS MODAL
+const AddSuppliers = ({ onClose, fetchSuppliersData }) => {
   const [supplierData, setSupplierData] = useState({
     supplier_id: '',
     supplier_name: '',
@@ -51,7 +51,7 @@ const AddProducts = ({ onClose }) => {
         })
         .then((data) => {
           console.log('POST request successful:', data);
-
+          fetchSuppliersData(); // Call the function to update the table
           onClose();
         })
         .catch((error) =>
@@ -85,12 +85,13 @@ const AddProducts = ({ onClose }) => {
   );
 };
 
-AddProducts.propTypes = {
+AddSuppliers.propTypes = {
   onClose: PropTypes.func.isRequired,
+  fetchSuppliersData: PropTypes.func.isRequired,
 };
 
-// * REMOVE PRODUCTS MODAL
-const RemoveProducts = ({ onClose, onDelete }) => {
+// * REMOVE SUPPLIERS MODAL
+const RemoveSuppliers = ({ onClose, onDelete }) => {
   const handleConfirm = () => {
     onDelete();
     onClose();
@@ -105,13 +106,13 @@ const RemoveProducts = ({ onClose, onDelete }) => {
   );
 };
 
-RemoveProducts.propTypes = {
+RemoveSuppliers.propTypes = {
   onClose: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
-// EditProducts Modal
-const EditProducts = ({ onClose, supplierData, onSave }) => {
+// * EDIT SUPPLIERS MODAL
+const EditSuppliers = ({ onClose, supplierData, onSave }) => {
   const [editedData, setEditedData] = useState(supplierData);
 
   useEffect(() => {
@@ -187,7 +188,7 @@ const EditProducts = ({ onClose, supplierData, onSave }) => {
   );
 };
 
-EditProducts.propTypes = {
+EditSuppliers.propTypes = {
   onClose: PropTypes.func.isRequired,
   supplierData: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
@@ -195,30 +196,29 @@ EditProducts.propTypes = {
 
 // Suppliers Component
 const Suppliers = () => {
-  const [isAddProductsModalOpen, setAddProductsModalOpen] = useState(false);
-  const [isEditProductsModalOpen, setEditProductsModalOpen] = useState(false);
-  const [isRemoveProductsModalOpen, setRemoveProductsModalOpen] =
+  const [isAddSuppliersModalOpen, setAddSuppliersModalOpen] = useState(false);
+  const [isEditSuppliersModalOpen, setEditSuppliersModalOpen] = useState(false);
+  const [isRemoveSuppliersModalOpen, setRemoveSuppliersModalOpen] =
     useState(false);
   const [selectedSupplier, setSelectedSupplier] = useState(null);
   const [suppliersData, setSuppliersData] = useState([]);
 
-  const toggleAddProductsModal = () => {
-    setAddProductsModalOpen(!isAddProductsModalOpen);
+  const toggleAddSuppliersModal = () => {
+    setAddSuppliersModalOpen(!isAddSuppliersModalOpen);
   };
 
-  const toggleEditProductsModal = (supplier) => {
+  const toggleEditSuppliersModal = (supplier) => {
     setSelectedSupplier(supplier);
-    setEditProductsModalOpen(!isEditProductsModalOpen);
+    setEditSuppliersModalOpen(!isEditSuppliersModalOpen);
   };
 
-  const toggleRemoveProductsModal = (supplier) => {
+  const toggleRemoveSuppliersModal = (supplier) => {
     setSelectedSupplier(supplier);
-    setRemoveProductsModalOpen(!isRemoveProductsModalOpen);
+    setRemoveSuppliersModalOpen(!isRemoveSuppliersModalOpen);
   };
 
   const handleEditSave = (editedData) => {
     console.log(`/api/admin/suppliers/${editedData.supplier_id}`);
-    // Perform the update operation
     fetch(`/api/admin/suppliers/${editedData.supplier_id}`, {
       method: 'PUT',
       headers: {
@@ -228,33 +228,35 @@ const Suppliers = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('PU request successful:', data);
-        // Update the state or fetch data again after the edit is successful
+        console.log('PUT request successful:', data);
+        fetchSuppliersData();
       })
-      .catch((error) => console.error('Error during PATCH request:', error));
+      .catch((error) => console.error('Error during PUT request:', error));
   };
 
   const handleDelete = () => {
-    // Perform the delete operation
     fetch(`/api/admin/suppliers/${selectedSupplier.supplier_id}`, {
       method: 'DELETE',
     })
       .then((response) => response.json())
       .then((data) => {
         console.log('DELETE request successful:', data);
-        // Update the state or fetch data again after the delete is successful
+        fetchSuppliersData();
       })
       .catch((error) => console.error('Error during DELETE request:', error));
   };
 
-  useEffect(() => {
-    // Fetch data when the component mounts
+  const fetchSuppliersData = () => {
     fetch('/api/admin/suppliers')
       .then((response) => response.json())
       .then((data) => {
         setSuppliersData(data);
       })
       .catch((error) => console.error('Error fetching data:', error));
+  };
+
+  useEffect(() => {
+    fetchSuppliersData();
   }, []);
 
   return (
@@ -286,10 +288,10 @@ const Suppliers = () => {
                 <td>{supplier.supplier_email}</td>
                 <td>{supplier.supplier_address}</td>
                 <td>
-                  <button onClick={() => toggleEditProductsModal(supplier)}>
+                  <button onClick={() => toggleEditSuppliersModal(supplier)}>
                     Edit
                   </button>
-                  <button onClick={() => toggleRemoveProductsModal(supplier)}>
+                  <button onClick={() => toggleRemoveSuppliersModal(supplier)}>
                     Delete
                   </button>
                 </td>
@@ -301,24 +303,27 @@ const Suppliers = () => {
 
       <div className='Suppliers__Modal'>
         <div className='Suppliers__Modal__Toggle'>
-          <button onClick={toggleAddProductsModal}>+</button>
+          <button onClick={toggleAddSuppliersModal}>+</button>
         </div>
       </div>
 
       {/* MODALS */}
-      {isAddProductsModalOpen && (
-        <AddProducts onClose={toggleAddProductsModal} />
+      {isAddSuppliersModalOpen && (
+        <AddSuppliers
+          onClose={toggleAddSuppliersModal}
+          fetchSuppliersData={fetchSuppliersData}
+        />
       )}
-      {isEditProductsModalOpen && (
-        <EditProducts
-          onClose={() => setEditProductsModalOpen(false)}
+      {isEditSuppliersModalOpen && (
+        <EditSuppliers
+          onClose={() => setEditSuppliersModalOpen(false)}
           supplierData={selectedSupplier}
           onSave={handleEditSave}
         />
       )}
-      {isRemoveProductsModalOpen && (
-        <RemoveProducts
-          onClose={() => setRemoveProductsModalOpen(false)}
+      {isRemoveSuppliersModalOpen && (
+        <RemoveSuppliers
+          onClose={() => setRemoveSuppliersModalOpen(false)}
           onDelete={handleDelete}
         />
       )}
