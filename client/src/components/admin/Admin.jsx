@@ -2,12 +2,12 @@ import { Route, Routes, Link, useMatch } from 'react-router-dom';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Dashboard from './pages/Dashboard';
-import Sales from './pages/Sales';
-import Employees from './pages/Employees';
-import Transactions from './pages/Transactions';
-import Suppliers from './pages/Suppliers';
-import Inventory from './pages/Inventory';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Sales from './pages/Sales/Sales';
+import Employees from './pages/Employees/Employees';
+import Transactions from './pages/Transactions/Transactions';
+import Suppliers from './pages/Suppliers/Suppliers';
+import Inventory from './pages/Inventory/Inventory';
 
 import './Admin.scss';
 import { useState } from 'react';
