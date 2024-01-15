@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Suppliers.scss';
 
 // * ADD SUPPLIERS MODAL
-const AddSuppliers = ({ onClose, fetchSuppliersData }) => {
+const AddSuppliers = ({ onClose, onInsert }) => {
   const [supplierData, setSupplierData] = useState({
     supplier_id: '',
     supplier_name: '',
@@ -14,49 +14,30 @@ const AddSuppliers = ({ onClose, fetchSuppliersData }) => {
     supplier_address: '',
   });
 
+  const [formErrors, setFormErrors] = useState({});
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSupplierData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setSupplierData((prevData) => ({ ...prevData, [name]: value }));
+    setFormErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
   };
 
-  const handleConfirm = async () => {
-    const requiredFields = [
-      'supplier_id',
-      'supplier_name',
-      'supplier_contact',
-      'supplier_telephone',
-      'supplier_email',
-      'supplier_address',
-    ];
-    const hasEmptyField = requiredFields.some((field) => !supplierData[field]);
+  const validateForm = () => {
+    const errors = {};
+    Object.entries(supplierData).forEach(([key, value]) => {
+      if (value.trim() === '') {
+        errors[key] = 'This field is required';
+      }
+    });
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
-    if (hasEmptyField) {
-      alert('Please fill in all required fields.');
-    } else {
-      fetch('/api/admin/suppliers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(supplierData),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log('POST request successful:', data);
-          fetchSuppliersData(); // Call the function to update the table
-          onClose();
-        })
-        .catch((error) =>
-          console.error('Error during POST request:', error.message)
-        );
+  const handleConfirm = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      onInsert(supplierData);
+      onClose();
     }
   };
 
@@ -64,56 +45,72 @@ const AddSuppliers = ({ onClose, fetchSuppliersData }) => {
     <div className='Suppliers__Modal__Add Modal'>
       <h1>Add Suppliers</h1>
 
-      <div className='Suppliers__Add'>
-        <p>Details</p>
-        <p>id</p>
-        <input type='text' name='supplier_id' onChange={handleChange} />
-        <p>name</p>
-        <input type='text' name='supplier_name' onChange={handleChange} />
-        <p>contact #</p>
-        <input type='text' name='supplier_contact' onChange={handleChange} />
-        <p>tel #</p>
-        <input type='text' name='supplier_telephone' onChange={handleChange} />
-        <p>email</p>
-        <input type='text' name='supplier_email' onChange={handleChange} />
-        <p>address</p>
-        <input type='text' name='supplier_address' onChange={handleChange} />
-      </div>
-      <button onClick={onClose}>Close</button>
-      <button onClick={handleConfirm}>Confirm</button>
+      <form className='Suppliers__Add' onSubmit={handleConfirm}>
+        <label htmlFor='supplier_id'>id</label>
+        <input
+          type='text'
+          name='supplier_id'
+          onChange={handleChange}
+          required
+        />
+        <span>{formErrors.supplier_id}</span>
+        <label>name</label>
+        <input
+          type='text'
+          name='supplier_name'
+          onChange={handleChange}
+          required
+        />
+        <span>{formErrors.supplier_name}</span>
+        <label>contact #</label>
+        <input
+          type='text'
+          name='supplier_contact'
+          onChange={handleChange}
+          required
+        />
+        <span>{formErrors.supplier_contact}</span>
+        <label>tel #</label>
+        <input
+          type='text'
+          name='supplier_telephone'
+          onChange={handleChange}
+          required
+        />
+        <span>{formErrors.supplier_telephone}</span>
+        <label>email</label>
+        <input
+          type='text'
+          name='supplier_email'
+          onChange={handleChange}
+          required
+        />
+        <span>{formErrors.supplier_email}</span>
+        <label>address</label>
+        <input
+          type='text'
+          name='supplier_address'
+          onChange={handleChange}
+          required
+        />
+        <span>{formErrors.supplier_address}</span>
+
+        <input type='submit' value='Close' onClick={onClose} />
+        <input type='submit' value='Confirm' />
+      </form>
     </div>
   );
 };
 
 AddSuppliers.propTypes = {
   onClose: PropTypes.func.isRequired,
-  fetchSuppliersData: PropTypes.func.isRequired,
-};
-
-// * REMOVE SUPPLIERS MODAL
-const RemoveSuppliers = ({ onClose, onDelete }) => {
-  const handleConfirm = () => {
-    onDelete();
-    onClose();
-  };
-
-  return (
-    <div className='Suppliers__Modal__Remove Modal'>
-      <p>Are you sure you want to delete this supplier?</p>
-      <button onClick={onClose}>Cancel</button>
-      <button onClick={handleConfirm}>Confirm</button>
-    </div>
-  );
-};
-
-RemoveSuppliers.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onInsert: PropTypes.func.isRequired,
 };
 
 // * EDIT SUPPLIERS MODAL
 const EditSuppliers = ({ onClose, supplierData, onSave }) => {
   const [editedData, setEditedData] = useState(supplierData);
+  const [formErrors, setFormErrors] = useState({});
 
   useEffect(() => {
     setEditedData(supplierData);
@@ -125,20 +122,34 @@ const EditSuppliers = ({ onClose, supplierData, onSave }) => {
       ...prevData,
       [name]: value,
     }));
+    setFormErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
   };
 
-  const handleConfirm = () => {
-    onSave(editedData);
-    onClose();
+  const validateForm = () => {
+    const errors = {};
+    Object.entries(editedData).forEach(([key, value]) => {
+      if (value.trim() === '') {
+        errors[key] = 'This field is required';
+      }
+    });
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleConfirm = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      onSave(editedData);
+      onClose();
+    }
   };
 
   return (
     <div className='Suppliers__Modal__Edit Modal'>
       <h1>Edit Suppliers</h1>
 
-      <div className='Suppliers__Edit'>
-        <p>Details</p>
-        <p>id</p>
+      <form className='Suppliers__Edit'>
+        <label htmlFor='supplier_id'>id</label>
         <input
           type='text'
           name='supplier_id'
@@ -146,44 +157,56 @@ const EditSuppliers = ({ onClose, supplierData, onSave }) => {
           onChange={handleChange}
           disabled
         />
-        <p>name</p>
+        <span>{formErrors.supplier_id}</span>
+        <label htmlFor='supplier_name'>name</label>
         <input
           type='text'
           name='supplier_name'
           value={editedData.supplier_name}
           onChange={handleChange}
+          required
         />
-        <p>contact #</p>
+        <span>{formErrors.supplier_name}</span>
+        <label htmlFor='supplier_contact'>contact #</label>
         <input
           type='text'
           name='supplier_contact'
           value={editedData.supplier_contact}
           onChange={handleChange}
+          required
         />
-        <p>tel #</p>
+        <span>{formErrors.supplier_contact}</span>
+        <label htmlFor='supplier_telephone'>tel #</label>
         <input
           type='text'
           name='supplier_telephone'
           value={editedData.supplier_telephone}
           onChange={handleChange}
+          required
         />
-        <p>email</p>
+        <span>{formErrors.supplier_telephone}</span>
+        <label htmlFor='supplier_email'>email</label>
         <input
           type='text'
           name='supplier_email'
           value={editedData.supplier_email}
           onChange={handleChange}
+          required
         />
-        <p>address</p>
+        <span>{formErrors.supplier_email}</span>
+        <label htmlFor='supplier_address'>address</label>
         <input
           type='text'
           name='supplier_address'
           value={editedData.supplier_address}
           onChange={handleChange}
+          required
         />
-      </div>
-      <button onClick={onClose}>Close</button>
-      <button onClick={handleConfirm}>Confirm</button>
+        <span>{formErrors.supplier_address}</span>
+
+        <input type='submit' value='Close' onClick={onClose} />
+        <input type='submit' value='Confirm' onClick={handleConfirm} />
+      </form>
     </div>
   );
 };
@@ -192,6 +215,31 @@ EditSuppliers.propTypes = {
   onClose: PropTypes.func.isRequired,
   supplierData: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
+};
+
+// * REMOVE SUPPLIERS MODAL
+const RemoveSuppliers = ({ onClose, onDelete, selectedSupplier }) => {
+  const handleConfirm = () => {
+    onDelete();
+    onClose();
+  };
+
+  return (
+    <div className='Suppliers__Modal__Remove Modal'>
+      <p>
+        Are you sure you want to delete this supplier with &quot;
+        {selectedSupplier}&quot; supplier id?
+      </p>
+      <button onClick={onClose}>Cancel</button>
+      <button onClick={handleConfirm}>Confirm</button>
+    </div>
+  );
+};
+
+RemoveSuppliers.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  selectedSupplier: PropTypes.string,
 };
 
 // Suppliers Component
@@ -215,6 +263,44 @@ const Suppliers = () => {
   const toggleRemoveSuppliersModal = (supplier) => {
     setSelectedSupplier(supplier);
     setRemoveSuppliersModalOpen(!isRemoveSuppliersModalOpen);
+  };
+
+  const handleInsert = (insertData) => {
+    const requiredFields = [
+      'supplier_id',
+      'supplier_name',
+      'supplier_contact',
+      'supplier_telephone',
+      'supplier_email',
+      'supplier_address',
+    ];
+
+    const hasEmptyField = requiredFields.some((field) => !insertData[field]);
+
+    if (hasEmptyField) {
+      alert('Please fill in all required fields.');
+    } else {
+      fetch('/api/admin/suppliers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(insertData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('POST request successful:', data);
+          fetchSuppliersData();
+        })
+        .catch((error) =>
+          console.error('Error during POST request:', error.message)
+        );
+    }
   };
 
   const handleEditSave = (editedData) => {
@@ -303,7 +389,7 @@ const Suppliers = () => {
 
       <div className='Suppliers__Modal'>
         <div className='Suppliers__Modal__Toggle'>
-          <button onClick={toggleAddSuppliersModal}>+</button>
+          <button onClick={toggleAddSuppliersModal}>add supplier</button>
         </div>
       </div>
 
@@ -311,7 +397,7 @@ const Suppliers = () => {
       {isAddSuppliersModalOpen && (
         <AddSuppliers
           onClose={toggleAddSuppliersModal}
-          fetchSuppliersData={fetchSuppliersData}
+          onInsert={handleInsert}
         />
       )}
       {isEditSuppliersModalOpen && (
@@ -325,6 +411,7 @@ const Suppliers = () => {
         <RemoveSuppliers
           onClose={() => setRemoveSuppliersModalOpen(false)}
           onDelete={handleDelete}
+          selectedSupplier={selectedSupplier.supplier_id}
         />
       )}
     </div>
