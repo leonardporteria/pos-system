@@ -1,5 +1,5 @@
 import { Route, Routes, Link, useMatch } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Dashboard from './pages/Dashboard/Dashboard';
@@ -10,7 +10,6 @@ import Suppliers from './pages/Suppliers/Suppliers';
 import Inventory from './pages/Inventory/Inventory';
 
 import './Admin.scss';
-import { useState } from 'react';
 
 const Admin = () => {
   const initialLocation = localStorage.getItem('currentPage') || 'Dashboard';
@@ -92,10 +91,10 @@ const Admin = () => {
         <Routes>
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='sales' element={<Sales />} />
-          <Route path='employees' element={<Employees />} />
+          <Route path='employees/*' element={<Employees />} />
           <Route path='transactions' element={<Transactions />} />
           <Route path='suppliers' element={<Suppliers />} />
-          <Route path='inventory' element={<Inventory />} />
+          <Route path='inventory/*' element={<Inventory />} />
           <Route path='*' element={<Dashboard />} />
         </Routes>
       </div>

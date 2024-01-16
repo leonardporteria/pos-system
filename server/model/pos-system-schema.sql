@@ -49,12 +49,13 @@ CREATE TABLE IF NOT EXISTS orders (
 
 CREATE TABLE IF NOT EXISTS product_category (
     product_category_id CHAR(255) PRIMARY KEY,
-    category_name VARCHAR(255) NOT NULL
+    product_category_name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS products (
     product_id CHAR(255) PRIMARY KEY,
     barcode_id BIGINT NOT NULL,
+    barcode_type CHAR(255) NOT NULL,
     product_name VARCHAR(255) NOT NULL,
     unit_price DECIMAL(8, 2) NULL,
     brand VARCHAR(255) NOT NULL,

@@ -46,54 +46,71 @@ const AddSuppliers = ({ onClose, onInsert }) => {
       <h1>Add Suppliers</h1>
 
       <form className='Suppliers__Add' onSubmit={handleConfirm}>
-        <label htmlFor='supplier_id'>id</label>
-        <input
-          type='text'
-          name='supplier_id'
-          onChange={handleChange}
-          required
-        />
-        <span>{formErrors.supplier_id}</span>
-        <label>name</label>
-        <input
-          type='text'
-          name='supplier_name'
-          onChange={handleChange}
-          required
-        />
-        <span>{formErrors.supplier_name}</span>
-        <label>contact #</label>
-        <input
-          type='text'
-          name='supplier_contact'
-          onChange={handleChange}
-          required
-        />
-        <span>{formErrors.supplier_contact}</span>
-        <label>tel #</label>
-        <input
-          type='text'
-          name='supplier_telephone'
-          onChange={handleChange}
-          required
-        />
-        <span>{formErrors.supplier_telephone}</span>
-        <label>email</label>
-        <input
-          type='text'
-          name='supplier_email'
-          onChange={handleChange}
-          required
-        />
-        <span>{formErrors.supplier_email}</span>
-        <label>address</label>
-        <input
-          type='text'
-          name='supplier_address'
-          onChange={handleChange}
-          required
-        />
-        <span>{formErrors.supplier_address}</span>
+        <div>
+          <label htmlFor='supplier_id'>id</label>
+          <input
+            type='text'
+            name='supplier_id'
+            onChange={handleChange}
+            required
+          />
+          <span>{formErrors.supplier_id}</span>
+        </div>
+
+        <div>
+          <label>name</label>
+          <input
+            type='text'
+            name='supplier_name'
+            onChange={handleChange}
+            required
+          />
+          <span>{formErrors.supplier_name}</span>
+        </div>
+
+        <div>
+          <label>contact #</label>
+          <input
+            type='text'
+            name='supplier_contact'
+            onChange={handleChange}
+            required
+          />
+          <span>{formErrors.supplier_contact}</span>
+        </div>
+
+        <div>
+          <label>tel #</label>
+          <input
+            type='text'
+            name='supplier_telephone'
+            onChange={handleChange}
+            required
+          />
+          <span>{formErrors.supplier_telephone}</span>
+        </div>
+
+        <div>
+          <label>email</label>
+          <input
+            type='text'
+            name='supplier_email'
+            onChange={handleChange}
+            required
+          />
+          <span>{formErrors.supplier_email}</span>
+        </div>
+
+        <div>
+          <label>address</label>
+          <input
+            type='text'
+            name='supplier_address'
+            onChange={handleChange}
+            required
+          />
+          <span>{formErrors.supplier_address}</span>
+        </div>
 
         <input type='submit' value='Close' onClick={onClose} />
         <input type='submit' value='Confirm' />
@@ -149,60 +166,77 @@ const EditSuppliers = ({ onClose, supplierData, onSave }) => {
       <h1>Edit Suppliers</h1>
 
       <form className='Suppliers__Edit'>
-        <label htmlFor='supplier_id'>id</label>
-        <input
-          type='text'
-          name='supplier_id'
-          value={editedData.supplier_id}
-          onChange={handleChange}
-          disabled
-        />
-        <span>{formErrors.supplier_id}</span>
-        <label htmlFor='supplier_name'>name</label>
-        <input
-          type='text'
-          name='supplier_name'
-          value={editedData.supplier_name}
-          onChange={handleChange}
-          required
-        />
-        <span>{formErrors.supplier_name}</span>
-        <label htmlFor='supplier_contact'>contact #</label>
-        <input
-          type='text'
-          name='supplier_contact'
-          value={editedData.supplier_contact}
-          onChange={handleChange}
-          required
-        />
-        <span>{formErrors.supplier_contact}</span>
-        <label htmlFor='supplier_telephone'>tel #</label>
-        <input
-          type='text'
-          name='supplier_telephone'
-          value={editedData.supplier_telephone}
-          onChange={handleChange}
-          required
-        />
-        <span>{formErrors.supplier_telephone}</span>
-        <label htmlFor='supplier_email'>email</label>
-        <input
-          type='text'
-          name='supplier_email'
-          value={editedData.supplier_email}
-          onChange={handleChange}
-          required
-        />
-        <span>{formErrors.supplier_email}</span>
-        <label htmlFor='supplier_address'>address</label>
-        <input
-          type='text'
-          name='supplier_address'
-          value={editedData.supplier_address}
-          onChange={handleChange}
-          required
-        />
-        <span>{formErrors.supplier_address}</span>
+        <div>
+          <label htmlFor='supplier_id'>id</label>
+          <input
+            type='text'
+            name='supplier_id'
+            value={editedData.supplier_id}
+            onChange={handleChange}
+            disabled
+          />
+          <span>{formErrors.supplier_id}</span>
+        </div>
+
+        <div>
+          <label htmlFor='supplier_name'>name</label>
+          <input
+            type='text'
+            name='supplier_name'
+            value={editedData.supplier_name}
+            onChange={handleChange}
+            required
+          />
+          <span>{formErrors.supplier_name}</span>
+        </div>
+
+        <div>
+          <label htmlFor='supplier_contact'>contact #</label>
+          <input
+            type='text'
+            name='supplier_contact'
+            value={editedData.supplier_contact}
+            onChange={handleChange}
+            required
+          />
+          <span>{formErrors.supplier_contact}</span>
+        </div>
+
+        <div>
+          <label htmlFor='supplier_telephone'>tel #</label>
+          <input
+            type='text'
+            name='supplier_telephone'
+            value={editedData.supplier_telephone}
+            onChange={handleChange}
+            required
+          />
+          <span>{formErrors.supplier_telephone}</span>
+        </div>
+
+        <div>
+          <label htmlFor='supplier_email'>email</label>
+          <input
+            type='text'
+            name='supplier_email'
+            value={editedData.supplier_email}
+            onChange={handleChange}
+            required
+          />
+          <span>{formErrors.supplier_email}</span>
+        </div>
+
+        <div>
+          <label htmlFor='supplier_address'>address</label>
+          <input
+            type='text'
+            name='supplier_address'
+            value={editedData.supplier_address}
+            onChange={handleChange}
+            required
+          />
+          <span>{formErrors.supplier_address}</span>
+        </div>
 
         <input type='submit' value='Close' onClick={onClose} />
         <input type='submit' value='Confirm' onClick={handleConfirm} />
@@ -349,6 +383,9 @@ const Suppliers = () => {
     <div className='Suppliers'>
       <div className='Suppliers__Filter'>
         <p>All Suppliers</p>
+        <div className='Suppliers__Filter__Add'>
+          <button onClick={toggleAddSuppliersModal}>add supplier</button>
+        </div>
       </div>
 
       <div className='Suppliers__Table'>
@@ -385,12 +422,6 @@ const Suppliers = () => {
             ))}
           </tbody>
         </table>
-      </div>
-
-      <div className='Suppliers__Modal'>
-        <div className='Suppliers__Modal__Toggle'>
-          <button onClick={toggleAddSuppliersModal}>add supplier</button>
-        </div>
       </div>
 
       {/* MODALS */}
