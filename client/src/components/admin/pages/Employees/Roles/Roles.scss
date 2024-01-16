@@ -1,0 +1,74 @@
+@import '../../../../../variables';
+
+.Roles {
+  display: grid;
+  grid-template-rows: 0.25fr 5fr;
+  height: 100%;
+  &__Filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  &__Table {
+    margin: 0 1rem 1rem 0;
+    overflow-y: scroll;
+    max-height: 100%;
+    border: 1px solid $gray-800;
+
+    > table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      position: relative;
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid $gray-800;
+      }
+
+      th {
+        background-color: $gray-200;
+        text-align: center;
+        position: sticky;
+        top: 0;
+      }
+    }
+  }
+
+  &__Modal {
+    &__Add {
+      display: flex;
+      flex-direction: column;
+      > form {
+        display: grid;
+        gap: 1rem;
+        > div {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+
+    &__Edit {
+      display: flex;
+      flex-direction: column;
+      > form {
+        display: grid;
+        gap: 1rem;
+        > div {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+
+    &__Remove {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
