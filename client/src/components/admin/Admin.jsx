@@ -64,14 +64,14 @@ const Admin = () => {
           <NavLink to='/admin/sales' label='Sales'>
             Sales
           </NavLink>
+          <NavLink to='/admin/transactions' label='Transcations'>
+            Transcations
+          </NavLink>
           <NavLink to='/admin/inventory' label='Inventory'>
             Inventory
           </NavLink>
           <NavLink to='/admin/employees' label='Employees'>
             Employees
-          </NavLink>
-          <NavLink to='/admin/transactions' label='Transcations'>
-            Transcations
           </NavLink>
           <NavLink to='/admin/suppliers' label='Suppliers'>
             Suppliers

@@ -47,73 +47,81 @@ const AddSuppliers = ({ onClose, onInsert }) => {
 
       <form className='Suppliers__Add' onSubmit={handleConfirm}>
         <div>
-          <label htmlFor='supplier_id'>id</label>
+          <label htmlFor='supplier_id'>Supplier ID</label>
           <input
             type='text'
             name='supplier_id'
             onChange={handleChange}
             required
+            placeholder='Enter supplier id'
           />
           <span>{formErrors.supplier_id}</span>
         </div>
 
         <div>
-          <label>name</label>
+          <label>Supplier Name</label>
           <input
             type='text'
             name='supplier_name'
             onChange={handleChange}
             required
+            placeholder='Enter supplier name'
           />
           <span>{formErrors.supplier_name}</span>
         </div>
 
         <div>
-          <label>contact #</label>
+          <label>Supplier Contact Number</label>
           <input
-            type='text'
+            type='number'
             name='supplier_contact'
             onChange={handleChange}
             required
+            placeholder='09XXXXXXXXXX'
           />
           <span>{formErrors.supplier_contact}</span>
         </div>
 
         <div>
-          <label>tel #</label>
+          <label>Supplier Telephone Number</label>
           <input
-            type='text'
+            type='number'
             name='supplier_telephone'
             onChange={handleChange}
             required
+            placeholder='Enter supplier telephone number'
           />
           <span>{formErrors.supplier_telephone}</span>
         </div>
 
         <div>
-          <label>email</label>
+          <label>Supplier Email Address</label>
           <input
-            type='text'
+            type='email'
             name='supplier_email'
             onChange={handleChange}
             required
+            placeholder='address@domain.com'
           />
           <span>{formErrors.supplier_email}</span>
         </div>
 
         <div>
-          <label>address</label>
+          <label>Supplier Address</label>
           <input
             type='text'
             name='supplier_address'
             onChange={handleChange}
             required
+            placeholder='Enter complete address'
           />
           <span>{formErrors.supplier_address}</span>
         </div>
 
-        <input type='submit' value='Close' onClick={onClose} />
-        <input type='submit' value='Confirm' />
+        <span>
+          <input type='submit' value='Confirm' />
+          <input type='submit' value='Close' onClick={onClose} />
+        </span>
       </form>
     </div>
   );
@@ -167,7 +175,7 @@ const EditSuppliers = ({ onClose, supplierData, onSave }) => {
 
       <form className='Suppliers__Edit'>
         <div>
-          <label htmlFor='supplier_id'>id</label>
+          <label htmlFor='supplier_id'>Supplier ID</label>
           <input
             type='text'
             name='supplier_id'
@@ -179,67 +187,74 @@ const EditSuppliers = ({ onClose, supplierData, onSave }) => {
         </div>
 
         <div>
-          <label htmlFor='supplier_name'>name</label>
+          <label>Supplier Name</label>
           <input
             type='text'
             name='supplier_name'
             value={editedData.supplier_name}
             onChange={handleChange}
             required
+            placeholder='Enter supplier name'
           />
           <span>{formErrors.supplier_name}</span>
         </div>
 
         <div>
-          <label htmlFor='supplier_contact'>contact #</label>
+          <label>Supplier Contact Number</label>
           <input
-            type='text'
+            type='number'
             name='supplier_contact'
             value={editedData.supplier_contact}
             onChange={handleChange}
             required
+            placeholder='09XXXXXXXXXX'
           />
           <span>{formErrors.supplier_contact}</span>
         </div>
 
         <div>
-          <label htmlFor='supplier_telephone'>tel #</label>
+          <label>Supplier Telephone Number</label>
           <input
-            type='text'
+            type='number'
             name='supplier_telephone'
             value={editedData.supplier_telephone}
             onChange={handleChange}
             required
+            placeholder='Enter supplier telephone number'
           />
           <span>{formErrors.supplier_telephone}</span>
         </div>
 
         <div>
-          <label htmlFor='supplier_email'>email</label>
+          <label>Supplier Email Address</label>
           <input
-            type='text'
+            type='email'
             name='supplier_email'
             value={editedData.supplier_email}
             onChange={handleChange}
             required
+            placeholder='address@domain.com'
           />
           <span>{formErrors.supplier_email}</span>
         </div>
 
         <div>
-          <label htmlFor='supplier_address'>address</label>
+          <label>Supplier Address</label>
           <input
             type='text'
             name='supplier_address'
             value={editedData.supplier_address}
             onChange={handleChange}
             required
+            placeholder='Enter complete address'
           />
           <span>{formErrors.supplier_address}</span>
         </div>
 
-        <input type='submit' value='Close' onClick={onClose} />
-        <input type='submit' value='Confirm' onClick={handleConfirm} />
+        <span>
+          <input type='submit' value='Confirm' onClick={handleConfirm} />
+          <input type='submit' value='Close' onClick={onClose} />
+        </span>
       </form>
     </div>
   );
@@ -264,8 +279,10 @@ const RemoveSuppliers = ({ onClose, onDelete, selectedSupplier }) => {
         Are you sure you want to delete this supplier with &quot;
         {selectedSupplier}&quot; supplier id?
       </p>
-      <button onClick={onClose}>Cancel</button>
-      <button onClick={handleConfirm}>Confirm</button>
+      <span>
+        <button onClick={handleConfirm}>Confirm</button>
+        <button onClick={onClose}>Cancel</button>
+      </span>
     </div>
   );
 };
