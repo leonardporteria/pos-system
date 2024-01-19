@@ -6,8 +6,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Sales from './pages/Sales/Sales';
 import Employees from './pages/Employees/Employees';
 import Transactions from './pages/Transactions/Transactions';
-import Suppliers from './pages/Suppliers/Suppliers';
 import Inventory from './pages/Inventory/Inventory';
+import Procurement from './pages/Procurement/Procurement';
 
 import './Admin.scss';
 
@@ -73,8 +73,8 @@ const Admin = () => {
           <NavLink to='/admin/employees' label='Employees'>
             Employees
           </NavLink>
-          <NavLink to='/admin/suppliers' label='Suppliers'>
-            Suppliers
+          <NavLink to='/admin/procurement' label='Suppliers'>
+            Procurement
           </NavLink>
         </div>
       </nav>
@@ -93,7 +93,7 @@ const Admin = () => {
           <Route path='sales' element={<Sales />} />
           <Route path='employees/*' element={<Employees />} />
           <Route path='transactions' element={<Transactions />} />
-          <Route path='suppliers' element={<Suppliers />} />
+          <Route path='procurement/*' element={<Procurement />} />
           <Route path='inventory/*' element={<Inventory />} />
           <Route path='*' element={<Dashboard />} />
         </Routes>

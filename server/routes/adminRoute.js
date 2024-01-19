@@ -10,6 +10,20 @@ import {
 } from '../middleware/suppliers.js';
 
 import {
+  insertOrder,
+  selectOrders,
+  updateOrder,
+  deleteOrder,
+} from '../middleware/orders.js';
+
+import {
+  insertOrderDetail,
+  selectOrderDetails,
+  updateOrderDetail,
+  deleteOrderDetail,
+} from '../middleware/orderDetails.js';
+
+import {
   insertProduct,
   selectProducts,
   updateProduct,
@@ -66,6 +80,26 @@ adminRouter.post('/admin/suppliers', insertSupplier);
 adminRouter.put('/admin/suppliers/:supplier_id', updateSupplier);
 // * DELETE ONE SUPPLIER
 adminRouter.delete('/admin/suppliers/:supplier_id', deleteSupplier);
+
+// ? ORDERS
+// * GET ALL ORDERS
+adminRouter.get('/admin/orders', selectOrders);
+// * INSERT NEW ORDERS
+adminRouter.post('/admin/orders', insertOrder);
+// * EDIT ONE ORDERS
+adminRouter.put('/admin/orders/:order_id', updateOrder);
+// * DELETE ONE ORDERS
+adminRouter.delete('/admin/orders/:order_id', deleteOrder);
+
+// ? ODRDER DETAILS
+// * GET ALL ODRDER DETAILS
+adminRouter.get('/admin/order_details', selectOrderDetails);
+// * INSERT NEW ODRDER DETAILS
+adminRouter.post('/admin/order_details', insertOrderDetail);
+// * EDIT ONE ODRDER DETAILS
+adminRouter.put('/admin/order_details/:order_id', updateOrderDetail);
+// * DELETE ONE ODRDER DETAILS
+adminRouter.delete('/admin/order_details/:order_id', deleteOrderDetail);
 
 // ? PRODUCTS
 // * GET ALL PRODUCTS
