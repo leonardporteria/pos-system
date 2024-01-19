@@ -24,6 +24,20 @@ import {
 } from '../middleware/productCategory.js';
 
 import {
+  insertProductInventory,
+  selectProductInventory,
+  updateProductInventory,
+  deleteProductInventory,
+} from '../middleware/productInventory.js';
+
+import {
+  insertProductHistory,
+  selectProductHistory,
+  updateProductHistory,
+  deleteProductHistory,
+} from '../middleware/productHistory.js';
+
+import {
   insertRole,
   selectRoles,
   updateRole,
@@ -54,49 +68,81 @@ adminRouter.put('/admin/suppliers/:supplier_id', updateSupplier);
 adminRouter.delete('/admin/suppliers/:supplier_id', deleteSupplier);
 
 // ? PRODUCTS
-// * GET ALL SUPPLIERS
+// * GET ALL PRODUCTS
 adminRouter.get('/admin/products', selectProducts);
-// * INSERT NEW SUPPLIER
+// * INSERT NEW PRODUCTS
 adminRouter.post('/admin/products', insertProduct);
-// * EDIT ONE SUPPLIER
+// * EDIT ONE PRODUCTS
 adminRouter.put('/admin/products/:product_id', updateProduct);
-// * DELETE ONE SUPPLIER
+// * DELETE ONE PRODUCTS
 adminRouter.delete('/admin/products/:product_id', deleteProduct);
 
 // ? PRODUCT CATEGORY
-// * GET ALL SUPPLIERS
+// * GET ALL PRODUCT CATEGORY
 adminRouter.get('/admin/product_category', selectProductCategories);
-// * INSERT NEW SUPPLIER
+// * INSERT NEW PRODUCT CATEGORY
 adminRouter.post('/admin/product_category', insertProductCategory);
-// * EDIT ONE SUPPLIER
+// * EDIT ONE PRODUCT CATEGORY
 adminRouter.put(
   '/admin/product_category/:product_category_id',
   updateProductCategory
 );
-// * DELETE ONE SUPPLIER
+// * DELETE ONE PRODUCT CATEGORY
 adminRouter.delete(
   '/admin/product_category/:product_category_id',
   deleteProductCategory
 );
 
+// ? PRODUCT INVENTORY
+// * GET ALL PRODUCT INVENTORY
+adminRouter.get('/admin/product_inventory', selectProductInventory);
+// * INSERT NEW PRODUCT INVENTORY
+adminRouter.post('/admin/product_inventory', insertProductInventory);
+// * EDIT ONE PRODUCT INVENTORY
+adminRouter.put(
+  '/admin/product_inventory/:inventory_id',
+  updateProductInventory
+);
+// * DELETE ONE PRODUCT INVENTORY
+adminRouter.delete(
+  '/admin/product_inventory/:inventory_id',
+  deleteProductInventory
+);
+
+// ? PRODUCT HISTORY
+// * GET ALL PRODUCT HISTORY
+adminRouter.get('/admin/product_history', selectProductHistory);
+// * INSERT NEW PRODUCT HISTORY
+adminRouter.post('/admin/product_history', insertProductHistory);
+// * EDIT ONE PRODUCT HISTORY
+adminRouter.put(
+  '/admin/product_history/:product_history_id',
+  updateProductHistory
+);
+// * DELETE ONE PRODUCT HISTORY
+adminRouter.delete(
+  '/admin/product_history/:product_history_id',
+  deleteProductHistory
+);
+
 // ? EMPLOYEES
-// * GET ALL SUPPLIERS
+// * GET ALL EMPLOYEES
 adminRouter.get('/admin/employees', selectEmployees);
-// * INSERT NEW SUPPLIER
+// * INSERT NEW EMPLOYEES
 adminRouter.post('/admin/employees', insertEmployee);
-// * EDIT ONE SUPPLIER
+// * EDIT ONE EMPLOYEES
 adminRouter.put('/admin/employees/:employee_id', updateEmployee);
-// * DELETE ONE SUPPLIER
+// * DELETE ONE EMPLOYEES
 adminRouter.delete('/admin/employees/:employee_id', deleteEmployee);
 
 // ? ROLES
-// * GET ALL SUPPLIERS
+// * GET ALL ROLES
 adminRouter.get('/admin/roles', selectRoles);
-// * INSERT NEW SUPPLIER
+// * INSERT NEW ROLES
 adminRouter.post('/admin/roles', insertRole);
-// * EDIT ONE SUPPLIER
+// * EDIT ONE ROLES
 adminRouter.put('/admin/roles/:role_id', updateRole);
-// * DELETE ONE SUPPLIER
+// * DELETE ONE ROLES
 adminRouter.delete('/admin/roles/:role_id', deleteRole);
 
 // ?  ERROR HANDLER

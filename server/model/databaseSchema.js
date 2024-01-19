@@ -14,7 +14,7 @@ const createQueries = [
     username VARCHAR(255) NOT NULL,
     password CHAR(255) NOT NULL,
     hourly_wage DECIMAL(8, 2) NOT NULL,
-    work_schedule DATETIME NOT NULL,
+    work_schedule TIME NOT NULL,
     role_id CHAR(255) NOT NULL DEFAULT 'FK',
     FOREIGN KEY (role_id) REFERENCES roles(role_id)
   );`,
