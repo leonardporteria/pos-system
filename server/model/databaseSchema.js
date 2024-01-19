@@ -83,7 +83,6 @@ const createQueries = [
     minimum_stock_level INT NOT NULL,
     maximum_stock_level INT NOT NULL,
     last_stock_update DATETIME NOT NULL,
-    reorder_level INT NOT NULL,
     FOREIGN KEY (product_id) REFERENCES products(product_id)
   );`,
 
