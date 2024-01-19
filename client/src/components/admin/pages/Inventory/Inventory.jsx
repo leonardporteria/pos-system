@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import ProductCategory from './ProductCategory/ProductCategory';
 import Products from './Products/Products';
+import ProductHistory from './ProductHistory/ProductHistory';
+import ProductInventory from './ProductInventory/ProductInventory';
 
 import './Inventory.scss';
 
@@ -31,6 +33,10 @@ const Inventory = () => {
         return <ProductCategory />;
       case 'products':
         return <Products />;
+      case 'product_history':
+        return <ProductHistory />;
+      case 'product_inventory':
+        return <ProductInventory />;
       default:
         return <div>*asd</div>;
     }
@@ -42,6 +48,8 @@ const Inventory = () => {
         <div className='Inventory__Navbar__Links'>
           <NavLink tab='product_category' label='Product Category' />
           <NavLink tab='products' label='Products' />
+          <NavLink tab='product_history' label='Product History' />
+          <NavLink tab='product_inventory' label='Product Inventory' />
         </div>
       </nav>
 
