@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import Roles from './Roles/Roles';
 import Workers from './Workers/Workers';
 
+import './Employees.scss';
+
 const Employees = () => {
   const [activeTab, setActiveTab] = useState('roles');
 
   const NavLink = ({ tab, label }) => (
     <div
       className={
-        activeTab === tab ? 'currenttab' : 'Employees__Sidebar__Links__Link'
+        activeTab === tab ? 'currenttab' : 'Employees__Navbar__Links__Link'
       }
       onClick={() => setActiveTab(tab)}
     >
@@ -36,12 +38,8 @@ const Employees = () => {
 
   return (
     <div className='Employees'>
-      <nav className='Employees__Sidebar'>
-        <h1 className='Employees__Sidebar__Title'>
-          SnapShop Employees Dashboard
-        </h1>
-
-        <div className='Employees__Sidebar__Links'>
+      <nav className='Employees__Navbar'>
+        <div className='Employees__Navbar__Links'>
           <NavLink tab='roles' label='Roles' />
           <NavLink tab='workers' label='Workers' />
         </div>

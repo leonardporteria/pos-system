@@ -83,8 +83,10 @@ const AddRoles = ({ onClose, onInsert }) => {
           <span>{formErrors.permission}</span>
         </div>
 
-        <input type='submit' value='Close' onClick={onClose} />
-        <input type='submit' value='Confirm' />
+        <span>
+          <input type='submit' value='Confirm' />
+          <input type='submit' value='Close' onClick={onClose} />
+        </span>
       </form>
     </div>
   );
@@ -185,8 +187,10 @@ const EditRoles = ({ onClose, roleData, onSave }) => {
           <span>{formErrors.permission}</span>
         </div>
 
-        <input type='submit' value='Close' onClick={onClose} />
-        <input type='submit' value='Confirm' onClick={handleConfirm} />
+        <span>
+          <input type='submit' value='Confirm' onClick={handleConfirm} />
+          <input type='submit' value='Close' onClick={onClose} />
+        </span>
       </form>
     </div>
   );
@@ -211,8 +215,10 @@ const RemoveRoles = ({ onClose, onDelete, selectedRole }) => {
         Are you sure you want to delete this role with &quot;
         {selectedRole}&quot; role id?
       </p>
-      <button onClick={onClose}>Cancel</button>
-      <button onClick={handleConfirm}>Confirm</button>
+      <span>
+        <button onClick={handleConfirm}>Confirm</button>
+        <button onClick={onClose}>Cancel</button>
+      </span>
     </div>
   );
 };

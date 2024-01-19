@@ -38,10 +38,10 @@ const AddProductCategory = ({ onClose, onInsert }) => {
   };
 
   return (
-    <div className='ProductCategory__Modal__Add Modal'>
+    <div className='ProductCategories__Modal__Add Modal'>
       <h1>Add Product Category</h1>
 
-      <form className='ProductCategory__Add' onSubmit={handleConfirm}>
+      <form className='ProductCategories__Add' onSubmit={handleConfirm}>
         <div>
           <label htmlFor='product_category_id'>id</label>
           <input
@@ -64,8 +64,10 @@ const AddProductCategory = ({ onClose, onInsert }) => {
           <span>{formErrors.product_category_name}</span>
         </div>
 
-        <input type='submit' value='Close' onClick={onClose} />
-        <input type='submit' value='Confirm' />
+        <span>
+          <input type='submit' value='Confirm' />
+          <input type='submit' value='Close' onClick={onClose} />
+        </span>
       </form>
     </div>
   );
@@ -114,10 +116,10 @@ const EditProductCategory = ({ onClose, productCategoryData, onSave }) => {
   };
 
   return (
-    <div className='ProductCategory__Modal__Edit Modal'>
+    <div className='ProductCategories__Modal__Edit Modal'>
       <h1>Edit Product Category</h1>
 
-      <form className='ProductCategory__Edit'>
+      <form className='ProductCategories__Edit'>
         <div>
           <label htmlFor='product_category_id'>id</label>
           <input
@@ -142,8 +144,10 @@ const EditProductCategory = ({ onClose, productCategoryData, onSave }) => {
           <span>{formErrors.product_category_name}</span>
         </div>
 
-        <input type='submit' value='Close' onClick={onClose} />
-        <input type='submit' value='Confirm' onClick={handleConfirm} />
+        <span>
+          <input type='submit' value='Confirm' onClick={handleConfirm} />
+          <input type='submit' value='Close' onClick={onClose} />
+        </span>
       </form>
     </div>
   );
@@ -167,13 +171,15 @@ const RemoveProductCategory = ({
   };
 
   return (
-    <div className='ProductCategory__Modal__Remove Modal'>
+    <div className='ProductCategories__Modal__Remove Modal'>
       <p>
         Are you sure you want to delete this product category with &quot;
         {selectedProductCategory}&quot; product category id?
       </p>
-      <button onClick={onClose}>Cancel</button>
-      <button onClick={handleConfirm}>Confirm</button>
+      <span>
+        <button onClick={handleConfirm}>Confirm</button>
+        <button onClick={onClose}>Cancel</button>
+      </span>
     </div>
   );
 };

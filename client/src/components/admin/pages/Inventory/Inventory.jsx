@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import ProductCategory from './ProductCategory/ProductCategory';
 import Products from './Products/Products';
 
+import './Inventory.scss';
+
 const Inventory = () => {
   const [activeTab, setActiveTab] = useState('product_category');
 
   const NavLink = ({ tab, label }) => (
     <div
       className={
-        activeTab === tab ? 'currenttab' : 'Inventory__Sidebar__Links__Link'
+        activeTab === tab ? 'currenttab' : 'Inventory__Navbar__Links__Link'
       }
       onClick={() => setActiveTab(tab)}
     >
@@ -36,12 +38,8 @@ const Inventory = () => {
 
   return (
     <div className='Inventory'>
-      <nav className='Inventory__Sidebar'>
-        <h1 className='Inventory__Sidebar__Title'>
-          SnapShop Inventory Dashboard
-        </h1>
-
-        <div className='Inventory__Sidebar__Links'>
+      <nav className='Inventory__Navbar'>
+        <div className='Inventory__Navbar__Links'>
           <NavLink tab='product_category' label='Product Category' />
           <NavLink tab='products' label='Products' />
         </div>

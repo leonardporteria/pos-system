@@ -95,7 +95,7 @@ const AddWorkers = ({ onClose, onInsert }) => {
         <div>
           <label htmlFor='work_schedule'>Work Schedule</label>
           <input
-            type='datetime-local'
+            type='time'
             name='work_schedule'
             onChange={handleChange}
             required
@@ -109,8 +109,10 @@ const AddWorkers = ({ onClose, onInsert }) => {
           <span>{formErrors.role_id}</span>
         </div>
 
-        <input type='submit' value='Close' onClick={onClose} />
-        <input type='submit' value='Confirm' />
+        <span>
+          <input type='submit' value='Confirm' />
+          <input type='submit' value='Close' onClick={onClose} />
+        </span>
       </form>
     </div>
   );
@@ -221,7 +223,7 @@ const EditWorkers = ({ onClose, workerData, onSave }) => {
         <div>
           <label htmlFor='work_schedule'>Work Schedule</label>
           <input
-            type='datetime-local'
+            type='time'
             name='work_schedule'
             value={editedData.work_schedule}
             onChange={handleChange}
@@ -241,8 +243,10 @@ const EditWorkers = ({ onClose, workerData, onSave }) => {
           <span>{formErrors.role_id}</span>
         </div>
 
-        <input type='submit' value='Close' onClick={onClose} />
-        <input type='submit' value='Confirm' onClick={handleConfirm} />
+        <span>
+          <input type='submit' value='Confirm' onClick={handleConfirm} />
+          <input type='submit' value='Close' onClick={onClose} />
+        </span>
       </form>
     </div>
   );
@@ -267,8 +271,10 @@ const RemoveWorkers = ({ onClose, onDelete, selectedWorker }) => {
         Are you sure you want to delete this worker with &quot;{selectedWorker}
         &quot; employee ID?
       </p>
-      <button onClick={onClose}>Cancel</button>
-      <button onClick={handleConfirm}>Confirm</button>
+      <span>
+        <button onClick={handleConfirm}>Confirm</button>
+        <button onClick={onClose}>Cancel</button>
+      </span>
     </div>
   );
 };

@@ -144,8 +144,10 @@ const AddProducts = ({ onClose, onInsert }) => {
           <span>{formErrors.product_category_id}</span>
         </div>
 
-        <input type='submit' value='Close' onClick={onClose} />
-        <input type='submit' value='Confirm' />
+        <span>
+          <input type='submit' value='Close' onClick={onClose} />
+          <input type='submit' value='Confirm' />
+        </span>
       </form>
     </div>
   );
@@ -306,8 +308,10 @@ const EditProducts = ({ onClose, productData, onSave }) => {
           <span>{formErrors.product_category_id}</span>
         </div>
 
-        <input type='submit' value='Close' onClick={onClose} />
-        <input type='submit' value='Confirm' onClick={handleConfirm} />
+        <span>
+          <input type='submit' value='Confirm' onClick={handleConfirm} />
+          <input type='submit' value='Close' onClick={onClose} />
+        </span>
       </form>
     </div>
   );
@@ -332,8 +336,10 @@ const RemoveProducts = ({ onClose, onDelete, selectedProduct }) => {
         Are you sure you want to delete this product with &quot;
         {selectedProduct}&quot; product id?
       </p>
-      <button onClick={onClose}>Cancel</button>
-      <button onClick={handleConfirm}>Confirm</button>
+      <span>
+        <button onClick={handleConfirm}>Confirm</button>
+        <button onClick={onClose}>Cancel</button>
+      </span>
     </div>
   );
 };
