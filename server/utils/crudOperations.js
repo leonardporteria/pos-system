@@ -38,18 +38,23 @@ export async function updateData(
       .join(', ');
 
     let whereClause = '';
-    if (Array.isArray(identifierFields) && identifierFields.length > 0) {
-      whereClause = identifierFields
-        .map((field) => `${field} = ?`)
-        .join(' AND ');
-      whereClause = ` WHERE ${whereClause}`;
+    if (identifierFields && identifierValues) {
+      if (Array.isArray(identifierFields) && identifierFields.length > 0) {
+        whereClause = ` WHERE ${identifierFields
+          .map((field) => `${field} = ?`)
+          .join(' AND ')}`;
+      } else {
+        whereClause = ` WHERE ${identifierFields} = ?`;
+      }
     }
 
     const updateQuery = `UPDATE ${tableName} SET ${setClause}${whereClause}`;
 
     const [result] = await executeQuery(updateQuery, [
       ...Object.values(data),
-      ...(Array.isArray(identifierValues) ? identifierValues : []),
+      ...(Array.isArray(identifierValues)
+        ? identifierValues
+        : [identifierValues]),
     ]);
 
     return result;
@@ -65,16 +70,21 @@ export async function deleteData(
 ) {
   try {
     let whereClause = '';
-    if (Array.isArray(identifierFields) && identifierFields.length > 0) {
-      whereClause = identifierFields
-        .map((field) => `${field} = ?`)
-        .join(' AND ');
-      whereClause = ` WHERE ${whereClause}`;
+    if (identifierFields && identifierValues) {
+      if (Array.isArray(identifierFields) && identifierFields.length > 0) {
+        whereClause = ` WHERE ${identifierFields
+          .map((field) => `${field} = ?`)
+          .join(' AND ')}`;
+      } else {
+        whereClause = ` WHERE ${identifierFields} = ?`;
+      }
     }
 
     const deleteQuery = `DELETE FROM ${tableName}${whereClause}`;
     const [result] = await executeQuery(deleteQuery, [
-      ...(Array.isArray(identifierValues) ? identifierValues : []),
+      ...(Array.isArray(identifierValues)
+        ? identifierValues
+        : [identifierValues]),
     ]);
 
     return result;

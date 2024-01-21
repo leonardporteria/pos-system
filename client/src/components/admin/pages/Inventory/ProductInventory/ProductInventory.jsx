@@ -374,6 +374,8 @@ const ProductInventory = () => {
   const handleEditSave = (editedData) => {
     delete editedData.last_stock_update;
 
+    console.log(editedData);
+
     console.log(`/api/admin/product_inventory/${editedData.inventory_id}`);
     fetch(`/api/admin/product_inventory/${editedData.inventory_id}`, {
       method: 'PUT',
