@@ -12,11 +12,34 @@ const AddProductHistory = ({ onClose, onInsert }) => {
     new_bought_price: '',
     old_selling_price: '',
     new_selling_price: '',
-    change_datetime: '',
     employee_id: '',
   });
 
   const [formErrors, setFormErrors] = useState({});
+  const [productOptions, setProductOptions] = useState([]);
+  const [employeeOptions, setEmployeeOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchProductEmployees = async () => {
+      try {
+        const response = await fetch('/api/admin/products');
+        const data = await response.json();
+        setProductOptions(data);
+      } catch (error) {
+        console.error('Error fetching product options:', error);
+      }
+
+      try {
+        const response = await fetch('/api/admin/employees');
+        const data = await response.json();
+        setEmployeeOptions(data);
+      } catch (error) {
+        console.error('Error fetching employee options:', error);
+      }
+    };
+
+    fetchProductEmployees();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,12 +84,21 @@ const AddProductHistory = ({ onClose, onInsert }) => {
 
         <div>
           <label htmlFor='product_id'>Product ID</label>
-          <input
-            type='text'
+          <select
             name='product_id'
             onChange={handleChange}
+            value={productHistoryData.product_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Product ID
+            </option>
+            {productOptions.map((product) => (
+              <option key={product.product_id} value={product.product_id}>
+                {product.product_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.product_id}</span>
         </div>
 
@@ -115,24 +147,22 @@ const AddProductHistory = ({ onClose, onInsert }) => {
         </div>
 
         <div>
-          <label htmlFor='change_datetime'>Change Datetime</label>
-          <input
-            type='datetime-local'
-            name='change_datetime'
-            onChange={handleChange}
-            required
-          />
-          <span>{formErrors.change_datetime}</span>
-        </div>
-
-        <div>
           <label htmlFor='employee_id'>Employee ID</label>
-          <input
-            type='text'
+          <select
             name='employee_id'
             onChange={handleChange}
+            value={productHistoryData.employee_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Employee ID
+            </option>
+            {employeeOptions.map((employee) => (
+              <option key={employee.employee_id} value={employee.employee_id}>
+                {employee.employee_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.employee_id}</span>
         </div>
 
@@ -154,9 +184,31 @@ AddProductHistory.propTypes = {
 const EditProductHistory = ({ onClose, productHistoryData, onSave }) => {
   const [editedData, setEditedData] = useState(productHistoryData);
   const [formErrors, setFormErrors] = useState({});
+  const [productOptions, setProductOptions] = useState([]);
+  const [employeeOptions, setEmployeeOptions] = useState([]);
 
   useEffect(() => {
     setEditedData(productHistoryData);
+
+    const fetchProductEmployees = async () => {
+      try {
+        const productResponse = await fetch('/api/admin/products');
+        const productData = await productResponse.json();
+        setProductOptions(productData);
+      } catch (error) {
+        console.error('Error fetching product options:', error);
+      }
+
+      try {
+        const employeeResponse = await fetch('/api/admin/employees');
+        const employeeData = await employeeResponse.json();
+        setEmployeeOptions(employeeData);
+      } catch (error) {
+        console.error('Error fetching employee options:', error);
+      }
+    };
+
+    fetchProductEmployees();
   }, [productHistoryData]);
 
   const handleChange = (e) => {
@@ -206,13 +258,21 @@ const EditProductHistory = ({ onClose, productHistoryData, onSave }) => {
 
         <div>
           <label htmlFor='product_id'>Product ID</label>
-          <input
-            type='text'
+          <select
             name='product_id'
-            value={editedData.product_id}
             onChange={handleChange}
+            value={editedData.product_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Product ID
+            </option>
+            {productOptions.map((product) => (
+              <option key={product.product_id} value={product.product_id}>
+                {product.product_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.product_id}</span>
         </div>
 
@@ -265,26 +325,22 @@ const EditProductHistory = ({ onClose, productHistoryData, onSave }) => {
         </div>
 
         <div>
-          <label htmlFor='change_datetime'>Change Datetime</label>
-          <input
-            type='datetime-local'
-            name='change_datetime'
-            value={editedData.change_datetime}
-            onChange={handleChange}
-            required
-          />
-          <span>{formErrors.change_datetime}</span>
-        </div>
-
-        <div>
           <label htmlFor='employee_id'>Employee ID</label>
-          <input
-            type='text'
+          <select
             name='employee_id'
-            value={editedData.employee_id}
             onChange={handleChange}
+            value={editedData.employee_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Employee ID
+            </option>
+            {employeeOptions.map((employee) => (
+              <option key={employee.employee_id} value={employee.employee_id}>
+                {employee.employee_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.employee_id}</span>
         </div>
 
@@ -367,7 +423,6 @@ const ProductHistory = () => {
       'new_bought_price',
       'old_selling_price',
       'new_selling_price',
-      'change_datetime',
       'employee_id',
     ];
 
@@ -395,6 +450,8 @@ const ProductHistory = () => {
   };
 
   const handleEditSave = (editedData) => {
+    delete editedData.change_datetime;
+
     fetch(`/api/admin/product_history/${editedData.product_history_id}`, {
       method: 'PUT',
       headers: {
