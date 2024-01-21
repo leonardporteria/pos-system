@@ -73,7 +73,7 @@ const Admin = () => {
           <NavLink to='/admin/employees' label='Employees'>
             Employees
           </NavLink>
-          <NavLink to='/admin/procurement' label='Suppliers'>
+          <NavLink to='/admin/procurement' label='Procurement'>
             Procurement
           </NavLink>
         </div>
@@ -82,7 +82,6 @@ const Admin = () => {
       <div className='Admin__Dashboard'>
         <div className='Admin__Dashboard__Utils'>
           <h1>{location}</h1>
-          <input type='text' placeholder='Search' />
           <select name='' id=''>
             <option value=''>leonard porteria</option>
           </select>

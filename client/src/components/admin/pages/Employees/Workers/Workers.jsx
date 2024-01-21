@@ -16,6 +16,20 @@ const AddWorkers = ({ onClose, onInsert }) => {
   });
 
   const [formErrors, setFormErrors] = useState({});
+  const [roles, setRoles] = useState([]);
+
+  useEffect(() => {
+    const fetchRoles = () => {
+      fetch('/api/admin/roles')
+        .then((response) => response.json())
+        .then((data) => {
+          setRoles(data);
+        })
+        .catch((error) => console.error('Error fetching data:', error));
+    };
+
+    fetchRoles();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -105,7 +119,21 @@ const AddWorkers = ({ onClose, onInsert }) => {
 
         <div>
           <label htmlFor='role_id'>Role ID</label>
-          <input type='text' name='role_id' onChange={handleChange} required />
+          <select
+            name='role_id'
+            onChange={handleChange}
+            value={workerData.role_id}
+            required
+          >
+            <option value='' disabled>
+              Select Role ID
+            </option>
+            {roles.map((role) => (
+              <option key={role.role_id} value={role.role_id}>
+                {role.role_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.role_id}</span>
         </div>
 
@@ -126,10 +154,22 @@ AddWorkers.propTypes = {
 // * EDIT WORKERS MODAL
 const EditWorkers = ({ onClose, workerData, onSave }) => {
   const [editedData, setEditedData] = useState(workerData);
+  const [roles, setRoles] = useState([]);
   const [formErrors, setFormErrors] = useState({});
 
   useEffect(() => {
     setEditedData(workerData);
+
+    const fetchRoles = () => {
+      fetch('/api/admin/roles')
+        .then((response) => response.json())
+        .then((data) => {
+          setRoles(data);
+        })
+        .catch((error) => console.error('Error fetching data:', error));
+    };
+
+    fetchRoles();
   }, [workerData]);
 
   const handleChange = (e) => {
@@ -231,15 +271,24 @@ const EditWorkers = ({ onClose, workerData, onSave }) => {
           />
           <span>{formErrors.work_schedule}</span>
         </div>
+
         <div>
           <label htmlFor='role_id'>Role ID</label>
-          <input
-            type='text'
+          <select
             name='role_id'
-            value={editedData.role_id}
             onChange={handleChange}
+            value={editedData.role_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Role ID
+            </option>
+            {roles.map((role) => (
+              <option key={role.role_id} value={role.role_id}>
+                {role.role_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.role_id}</span>
         </div>
 

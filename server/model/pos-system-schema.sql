@@ -14,36 +14,24 @@ CREATE TABLE IF NOT EXISTS employees (
     username VARCHAR(255) NOT NULL,
     password CHAR(255) NOT NULL,
     hourly_wage DECIMAL(8, 2) NOT NULL,
-    work_schedule DATETIME NOT NULL,
-    role_id CHAR(255) NOT NULL DEFAULT 'FK',
+    work_schedule TIME DEFAULT (CURRENT_TIME),
+    role_id CHAR(255) NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
-
-CREATE TABLE IF NOT EXISTS attendance (
-    attendance_id CHAR(255) PRIMARY KEY,
-    employee_id CHAR(255) NOT NULL,
-    attendance_datetime DATETIME NOT NULL,
-    time_in DATETIME NOT NULL,
-    time_out DATETIME NOT NULL,
-    total_hours_worked INT NOT NULL,
-    status VARCHAR(255) NOT NULL,
-    FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
-);
-
 
 CREATE TABLE IF NOT EXISTS suppliers (
     supplier_id CHAR(255) PRIMARY KEY,
     supplier_name VARCHAR(255) NOT NULL,
-    supplier_contact VARCHAR(255) NOT NULL,
-    supplier_telephone VARCHAR(255) NOT NULL,
+    supplier_contact CHAR(11) NOT NULL,
+    supplier_telephone CHAR(10) NOT NULL,
     supplier_address VARCHAR(255) NOT NULL,
     supplier_email VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS orders (
     order_id CHAR(255) PRIMARY KEY,
-    order_date DATE NOT NULL,
-    employee_id CHAR(255) NOT NULL DEFAULT 'FK',
+    order_date DATE DEFAULT (CURRENT_DATE),
+    employee_id CHAR(255) NOT NULL,
 	FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 );
 
@@ -71,7 +59,7 @@ CREATE TABLE IF NOT EXISTS product_history (
     new_bought_price DECIMAL(8, 2) NOT NULL,
     old_selling_price DECIMAL(8, 2) NOT NULL,
     new_selling_price DECIMAL(8, 2) NOT NULL,
-    change_datetime DATETIME NOT NULL,
+    change_datetime DATETIME DEFAULT (CURRENT_TIMESTAMP),
     employee_id CHAR(255) NOT NULL DEFAULT 'FK',
 	FOREIGN KEY (product_id) REFERENCES products(product_id),
 	FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
@@ -79,12 +67,11 @@ CREATE TABLE IF NOT EXISTS product_history (
 
 CREATE TABLE IF NOT EXISTS product_inventory (
     inventory_id CHAR(255) PRIMARY KEY,
-    product_id CHAR(255) NOT NULL DEFAULT 'FK',
+    product_id CHAR(255) NOT NULL,
     current_stock INT NOT NULL,
     minimum_stock_level INT NOT NULL,
     maximum_stock_level INT NOT NULL,
-    last_stock_update DATETIME NOT NULL,
-    reorder_level INT NOT NULL,
+    last_stock_update DATETIME DEFAULT (CURRENT_TIMESTAMP),
 	FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
@@ -92,9 +79,9 @@ CREATE TABLE IF NOT EXISTS order_details (
     order_id CHAR(255) NOT NULL,
     inventory_id CHAR(255) NOT NULL,
     expected_date DATE NOT NULL,
-    actual_date DATE NOT NULL,
+    actual_date DATE,
     order_quantity CHAR(255) NOT NULL,
-    supplier_id CHAR(255) NOT NULL DEFAULT 'FK',
+    supplier_id CHAR(255) NOT NULL,
     PRIMARY KEY (order_id, inventory_id),
 	FOREIGN KEY (order_id) REFERENCES orders(order_id),
 	FOREIGN KEY (inventory_id) REFERENCES product_inventory(inventory_id),
@@ -103,10 +90,10 @@ CREATE TABLE IF NOT EXISTS order_details (
 
 CREATE TABLE IF NOT EXISTS transactions (
     transaction_id CHAR(255) PRIMARY KEY,
-    transaction_datetime DATETIME NOT NULL,
+    transaction_datetime DATETIME DEFAULT (CURRENT_TIMESTAMP),
     payment_method VARCHAR(255) NOT NULL,
     total_amount INT NOT NULL,
-    employee_id CHAR(255) NOT NULL DEFAULT 'FK',
+    employee_id CHAR(255) NOT NULL,
 	FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 );
 
