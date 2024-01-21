@@ -18,6 +18,22 @@ const AddProducts = ({ onClose, onInsert }) => {
 
   const [formErrors, setFormErrors] = useState({});
 
+  const [productCategories, setProductCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchProductCategories = async () => {
+      try {
+        const response = await fetch('/api/admin/product_category');
+        const data = await response.json();
+        setProductCategories(data);
+      } catch (error) {
+        console.error('Error fetching product categories:', error);
+      }
+    };
+
+    fetchProductCategories();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProductData((prevData) => ({ ...prevData, [name]: value }));
@@ -134,19 +150,30 @@ const AddProducts = ({ onClose, onInsert }) => {
 
         <div>
           <label htmlFor='product_category_id'>Product Category ID</label>
-          <input
-            type='text'
+          <select
             name='product_category_id'
-            value={productData.product_category_id}
             onChange={handleChange}
+            value={productData.product_category_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Product Category ID
+            </option>
+            {productCategories.map((category) => (
+              <option
+                key={category.product_category_id}
+                value={category.product_category_id}
+              >
+                {category.product_category_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.product_category_id}</span>
         </div>
 
         <span>
-          <input type='submit' value='Close' onClick={onClose} />
           <input type='submit' value='Confirm' />
+          <input type='submit' value='Close' onClick={onClose} />
         </span>
       </form>
     </div>
@@ -161,10 +188,23 @@ AddProducts.propTypes = {
 // * EDIT PRODUCTS MODAL
 const EditProducts = ({ onClose, productData, onSave }) => {
   const [editedData, setEditedData] = useState(productData);
+  const [productCategories, setProductCategories] = useState([]);
   const [formErrors, setFormErrors] = useState({});
 
   useEffect(() => {
     setEditedData(productData);
+
+    const fetchProductCategories = async () => {
+      try {
+        const response = await fetch('/api/admin/product_category');
+        const data = await response.json();
+        setProductCategories(data);
+      } catch (error) {
+        console.error('Error fetching product categories:', error);
+      }
+    };
+
+    fetchProductCategories();
   }, [productData]);
 
   const handleChange = (e) => {
@@ -298,13 +338,24 @@ const EditProducts = ({ onClose, productData, onSave }) => {
 
         <div>
           <label htmlFor='product_category_id'>Product Category ID</label>
-          <input
-            type='text'
+          <select
             name='product_category_id'
-            value={editedData.product_category_id}
             onChange={handleChange}
+            value={editedData.product_category_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Product Category ID
+            </option>
+            {productCategories.map((category) => (
+              <option
+                key={category.product_category_id}
+                value={category.product_category_id}
+              >
+                {category.product_category_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.product_category_id}</span>
         </div>
 
