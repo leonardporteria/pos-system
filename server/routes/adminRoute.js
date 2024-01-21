@@ -97,9 +97,15 @@ adminRouter.get('/admin/order_details', selectOrderDetails);
 // * INSERT NEW ODRDER DETAILS
 adminRouter.post('/admin/order_details', insertOrderDetail);
 // * EDIT ONE ODRDER DETAILS
-adminRouter.put('/admin/order_details/:order_id', updateOrderDetail);
+adminRouter.put(
+  '/admin/order_details/:order_id/:inventory_id',
+  updateOrderDetail
+);
 // * DELETE ONE ODRDER DETAILS
-adminRouter.delete('/admin/order_details/:order_id', deleteOrderDetail);
+adminRouter.delete(
+  '/admin/order_details/:order_id/:inventory_id',
+  deleteOrderDetail
+);
 
 // ? PRODUCTS
 // * GET ALL PRODUCTS

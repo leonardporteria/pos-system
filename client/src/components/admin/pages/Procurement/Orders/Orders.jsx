@@ -7,11 +7,26 @@ import './Orders.scss';
 const AddOrders = ({ onClose, onInsert }) => {
   const [orderData, setOrderData] = useState({
     order_id: '',
-    order_date: '',
     employee_id: '',
   });
 
   const [formErrors, setFormErrors] = useState({});
+
+  const [employeeOptions, setEmployeeOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const response = await fetch('/api/admin/employees');
+        const data = await response.json();
+        setEmployeeOptions(data);
+      } catch (error) {
+        console.error('Error fetching employee options:', error);
+      }
+    };
+
+    fetchEmployees();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,24 +65,22 @@ const AddOrders = ({ onClose, onInsert }) => {
         </div>
 
         <div>
-          <label>Order Date</label>
-          <input
-            type='datetime-local'
-            name='order_date'
-            onChange={handleChange}
-            required
-          />
-          <span>{formErrors.order_date}</span>
-        </div>
-
-        <div>
-          <label>Employee ID</label>
-          <input
-            type='text'
+          <label htmlFor='employee_id'>Employee ID</label>
+          <select
             name='employee_id'
             onChange={handleChange}
+            value={orderData.employee_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Employee ID
+            </option>
+            {employeeOptions.map((employee) => (
+              <option key={employee.employee_id} value={employee.employee_id}>
+                {employee.employee_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.employee_id}</span>
         </div>
 
@@ -89,9 +102,22 @@ AddOrders.propTypes = {
 const EditOrders = ({ onClose, orderData, onSave }) => {
   const [editedData, setEditedData] = useState(orderData);
   const [formErrors, setFormErrors] = useState({});
+  const [employeeOptions, setEmployeeOptions] = useState([]);
 
   useEffect(() => {
     setEditedData(orderData);
+
+    const fetchEmployees = async () => {
+      try {
+        const response = await fetch('/api/admin/employees');
+        const data = await response.json();
+        setEmployeeOptions(data);
+      } catch (error) {
+        console.error('Error fetching employee options:', error);
+      }
+    };
+
+    fetchEmployees();
   }, [orderData]);
 
   const handleChange = (e) => {
@@ -140,26 +166,22 @@ const EditOrders = ({ onClose, orderData, onSave }) => {
         </div>
 
         <div>
-          <label htmlFor='order_date'>Order Date</label>
-          <input
-            type='datetime-local'
-            name='order_date'
-            value={editedData.order_date}
-            onChange={handleChange}
-            required
-          />
-          <span>{formErrors.order_date}</span>
-        </div>
-
-        <div>
           <label htmlFor='employee_id'>Employee ID</label>
-          <input
-            type='text'
+          <select
             name='employee_id'
-            value={editedData.employee_id}
             onChange={handleChange}
+            value={editedData.employee_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Employee ID
+            </option>
+            {employeeOptions.map((employee) => (
+              <option key={employee.employee_id} value={employee.employee_id}>
+                {employee.employee_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.employee_id}</span>
         </div>
 
@@ -228,7 +250,7 @@ const Orders = () => {
   };
 
   const handleInsert = (insertData) => {
-    const requiredFields = ['order_id', 'order_date', 'employee_id'];
+    const requiredFields = ['order_id', 'employee_id'];
 
     const hasEmptyField = requiredFields.some((field) => !insertData[field]);
 
@@ -259,6 +281,8 @@ const Orders = () => {
   };
 
   const handleEditSave = (editedData) => {
+    delete editedData.order_date;
+
     console.log(`/api/admin/orders/${editedData.order_id}`);
     fetch(`/api/admin/orders/${editedData.order_id}`, {
       method: 'PUT',

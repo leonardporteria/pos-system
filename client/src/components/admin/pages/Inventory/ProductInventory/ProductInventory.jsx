@@ -11,10 +11,24 @@ const AddProductInventory = ({ onClose, onInsert }) => {
     current_stock: '',
     minimum_stock_level: '',
     maximum_stock_level: '',
-    last_stock_update: '',
   });
 
   const [formErrors, setFormErrors] = useState({});
+  const [productOptions, setProductOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/admin/products');
+        const data = await response.json();
+        setProductOptions(data);
+      } catch (error) {
+        console.error('Error fetching product options:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,16 +72,24 @@ const AddProductInventory = ({ onClose, onInsert }) => {
         </div>
 
         <div>
-          <label>Product ID</label>
-          <input
-            type='text'
+          <label htmlFor='product_id'>Product ID</label>
+          <select
             name='product_id'
             onChange={handleChange}
+            value={productInventoryData.product_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Product ID
+            </option>
+            {productOptions.map((product) => (
+              <option key={product.product_id} value={product.product_id}>
+                {product.product_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.product_id}</span>
         </div>
-
         <div>
           <label>Current Stock</label>
           <input
@@ -101,17 +123,6 @@ const AddProductInventory = ({ onClose, onInsert }) => {
           <span>{formErrors.maximum_stock_level}</span>
         </div>
 
-        <div>
-          <label>Last Stock Update</label>
-          <input
-            type='datetime-local'
-            name='last_stock_update'
-            onChange={handleChange}
-            required
-          />
-          <span>{formErrors.last_stock_update}</span>
-        </div>
-
         <span>
           <input type='submit' value='Confirm' />
           <input type='submit' value='Close' onClick={onClose} />
@@ -130,9 +141,22 @@ AddProductInventory.propTypes = {
 const EditProductInventory = ({ onClose, productInventoryData, onSave }) => {
   const [editedData, setEditedData] = useState(productInventoryData);
   const [formErrors, setFormErrors] = useState({});
+  const [productOptions, setProductOptions] = useState([]);
 
   useEffect(() => {
     setEditedData(productInventoryData);
+
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/admin/products');
+        const data = await response.json();
+        setProductOptions(data);
+      } catch (error) {
+        console.error('Error fetching product options:', error);
+      }
+    };
+
+    fetchProducts();
   }, [productInventoryData]);
 
   const handleChange = (e) => {
@@ -182,13 +206,21 @@ const EditProductInventory = ({ onClose, productInventoryData, onSave }) => {
 
         <div>
           <label htmlFor='product_id'>Product ID</label>
-          <input
-            type='text'
+          <select
             name='product_id'
-            value={editedData.product_id}
             onChange={handleChange}
+            value={editedData.product_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Product ID
+            </option>
+            {productOptions.map((product) => (
+              <option key={product.product_id} value={product.product_id}>
+                {product.product_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.product_id}</span>
         </div>
 
@@ -226,18 +258,6 @@ const EditProductInventory = ({ onClose, productInventoryData, onSave }) => {
             required
           />
           <span>{formErrors.maximum_stock_level}</span>
-        </div>
-
-        <div>
-          <label htmlFor='last_stock_update'>Last Stock Update</label>
-          <input
-            type='datetime-local'
-            name='last_stock_update'
-            value={editedData.last_stock_update}
-            onChange={handleChange}
-            required
-          />
-          <span>{formErrors.last_stock_update}</span>
         </div>
 
         <span>
@@ -321,7 +341,6 @@ const ProductInventory = () => {
       'current_stock',
       'minimum_stock_level',
       'maximum_stock_level',
-      'last_stock_update',
     ];
 
     const hasEmptyField = requiredFields.some((field) => !insertData[field]);
@@ -353,6 +372,8 @@ const ProductInventory = () => {
   };
 
   const handleEditSave = (editedData) => {
+    delete editedData.last_stock_update;
+
     console.log(`/api/admin/product_inventory/${editedData.inventory_id}`);
     fetch(`/api/admin/product_inventory/${editedData.inventory_id}`, {
       method: 'PUT',

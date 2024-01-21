@@ -15,6 +15,31 @@ const AddOrderDetails = ({ onClose, onInsert }) => {
   });
 
   const [formErrors, setFormErrors] = useState({});
+  const [orderOptions, setOrderOptions] = useState([]);
+  const [inventoryOptions, setInventoryOptions] = useState([]);
+  const [supplierOptions, setSupplierOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchDropdownOptions = async () => {
+      try {
+        const orderResponse = await fetch('/api/admin/orders');
+        const orderData = await orderResponse.json();
+        setOrderOptions(orderData);
+
+        const inventoryResponse = await fetch('/api/admin/product_inventory');
+        const inventoryData = await inventoryResponse.json();
+        setInventoryOptions(inventoryData);
+
+        const supplierResponse = await fetch('/api/admin/suppliers');
+        const supplierData = await supplierResponse.json();
+        setSupplierOptions(supplierData);
+      } catch (error) {
+        console.error('Error fetching dropdown options:', error);
+      }
+    };
+
+    fetchDropdownOptions();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,25 +73,51 @@ const AddOrderDetails = ({ onClose, onInsert }) => {
       <form className='OrderDetails__Add' onSubmit={handleConfirm}>
         <div>
           <label htmlFor='order_id'>Order ID</label>
-          <input type='text' name='order_id' onChange={handleChange} required />
+          <select
+            name='order_id'
+            onChange={handleChange}
+            value={orderDetailsData.order_id}
+            required
+          >
+            <option value='' disabled>
+              Select Order ID
+            </option>
+            {orderOptions.map((order) => (
+              <option key={order.order_id} value={order.order_id}>
+                {order.order_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.order_id}</span>
         </div>
 
         <div>
-          <label>Inventory ID</label>
-          <input
-            type='text'
+          <label htmlFor='inventory_id'>Inventory ID</label>
+          <select
             name='inventory_id'
             onChange={handleChange}
+            value={orderDetailsData.inventory_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Inventory ID
+            </option>
+            {inventoryOptions.map((inventory) => (
+              <option
+                key={inventory.inventory_id}
+                value={inventory.inventory_id}
+              >
+                {inventory.inventory_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.inventory_id}</span>
         </div>
 
         <div>
           <label>Expected Date</label>
           <input
-            type='datetime-local'
+            type='date'
             name='expected_date'
             onChange={handleChange}
             required
@@ -77,7 +128,7 @@ const AddOrderDetails = ({ onClose, onInsert }) => {
         <div>
           <label>Actual Date</label>
           <input
-            type='datetime-local'
+            type='date'
             name='actual_date'
             onChange={handleChange}
             required
@@ -97,13 +148,22 @@ const AddOrderDetails = ({ onClose, onInsert }) => {
         </div>
 
         <div>
-          <label>Supplier ID</label>
-          <input
-            type='text'
+          <label htmlFor='supplier_id'>Supplier ID</label>
+          <select
             name='supplier_id'
             onChange={handleChange}
+            value={orderDetailsData.supplier_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Supplier ID
+            </option>
+            {supplierOptions.map((supplier) => (
+              <option key={supplier.supplier_id} value={supplier.supplier_id}>
+                {supplier.supplier_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.supplier_id}</span>
         </div>
 
@@ -125,9 +185,32 @@ AddOrderDetails.propTypes = {
 const EditOrderDetails = ({ onClose, orderDetailsData, onSave }) => {
   const [editedData, setEditedData] = useState(orderDetailsData);
   const [formErrors, setFormErrors] = useState({});
+  const [orderOptions, setOrderOptions] = useState([]);
+  const [inventoryOptions, setInventoryOptions] = useState([]);
+  const [supplierOptions, setSupplierOptions] = useState([]);
 
   useEffect(() => {
     setEditedData(orderDetailsData);
+
+    const fetchDropdownOptions = async () => {
+      try {
+        const orderResponse = await fetch('/api/admin/orders');
+        const orderData = await orderResponse.json();
+        setOrderOptions(orderData);
+
+        const inventoryResponse = await fetch('/api/admin/product_inventory');
+        const inventoryData = await inventoryResponse.json();
+        setInventoryOptions(inventoryData);
+
+        const supplierResponse = await fetch('/api/admin/suppliers');
+        const supplierData = await supplierResponse.json();
+        setSupplierOptions(supplierData);
+      } catch (error) {
+        console.error('Error fetching dropdown options:', error);
+      }
+    };
+
+    fetchDropdownOptions();
   }, [orderDetailsData]);
 
   const handleChange = (e) => {
@@ -165,32 +248,51 @@ const EditOrderDetails = ({ onClose, orderDetailsData, onSave }) => {
       <form className='OrderDetails__Edit'>
         <div>
           <label htmlFor='order_id'>Order ID</label>
-          <input
-            type='text'
+          <select
             name='order_id'
-            value={editedData.order_id}
             onChange={handleChange}
+            value={editedData.order_id}
             disabled
-          />
+          >
+            <option value='' disabled>
+              Select Order ID
+            </option>
+            {orderOptions.map((order) => (
+              <option key={order.order_id} value={order.order_id}>
+                {order.order_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.order_id}</span>
         </div>
 
         <div>
           <label htmlFor='inventory_id'>Inventory ID</label>
-          <input
-            type='text'
+          <select
             name='inventory_id'
-            value={editedData.inventory_id}
             onChange={handleChange}
+            value={editedData.inventory_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Inventory ID
+            </option>
+            {inventoryOptions.map((inventory) => (
+              <option
+                key={inventory.inventory_id}
+                value={inventory.inventory_id}
+              >
+                {inventory.inventory_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.inventory_id}</span>
         </div>
 
         <div>
           <label htmlFor='expected_date'>Expected Date</label>
           <input
-            type='datetime-local'
+            type='date'
             name='expected_date'
             value={editedData.expected_date}
             onChange={handleChange}
@@ -202,7 +304,7 @@ const EditOrderDetails = ({ onClose, orderDetailsData, onSave }) => {
         <div>
           <label htmlFor='actual_date'>Actual Date</label>
           <input
-            type='datetime-local'
+            type='date'
             name='actual_date'
             value={editedData.actual_date}
             onChange={handleChange}
@@ -225,13 +327,21 @@ const EditOrderDetails = ({ onClose, orderDetailsData, onSave }) => {
 
         <div>
           <label htmlFor='supplier_id'>Supplier ID</label>
-          <input
-            type='text'
+          <select
             name='supplier_id'
-            value={editedData.supplier_id}
             onChange={handleChange}
+            value={editedData.supplier_id}
             required
-          />
+          >
+            <option value='' disabled>
+              Select Supplier ID
+            </option>
+            {supplierOptions.map((supplier) => (
+              <option key={supplier.supplier_id} value={supplier.supplier_id}>
+                {supplier.supplier_id}
+              </option>
+            ))}
+          </select>
           <span>{formErrors.supplier_id}</span>
         </div>
 
@@ -342,13 +452,16 @@ const OrderDetails = () => {
 
   const handleEditSave = (editedData) => {
     console.log(`/api/admin/order_details/${editedData.order_id}`);
-    fetch(`/api/admin/order-details/${editedData.order_id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(editedData),
-    })
+    fetch(
+      `/api/admin/order_details/${editedData.order_id}/${editedData.inventory_id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedData),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log('PUT request successful:', data);
@@ -358,9 +471,12 @@ const OrderDetails = () => {
   };
 
   const handleDelete = () => {
-    fetch(`/api/admin/order_details/${selectedOrderDetails.order_id}`, {
-      method: 'DELETE',
-    })
+    fetch(
+      `/api/admin/order_details/${selectedOrderDetails.order_id}/${selectedOrderDetails.inventory_id}`,
+      {
+        method: 'DELETE',
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log('DELETE request successful:', data);
@@ -408,7 +524,7 @@ const OrderDetails = () => {
           </thead>
           <tbody>
             {orderDetailsData.map((orderDetails) => (
-              <tr key={orderDetails.order_id}>
+              <tr key={`${orderDetails.order_id}-${orderDetails.inventory_id}`}>
                 <td>{orderDetails.order_id}</td>
                 <td>{orderDetails.inventory_id}</td>
                 <td>{orderDetails.expected_date}</td>

@@ -29,18 +29,27 @@ export async function insertData(tableName, data) {
 export async function updateData(
   tableName,
   data,
-  identifierField,
-  identifierValue
+  identifierFields,
+  identifierValues
 ) {
   try {
     const setClause = Object.keys(data)
       .map((column) => `${column} = ?`)
       .join(', ');
 
-    const updateQuery = `UPDATE ${tableName} SET ${setClause} WHERE ${identifierField} = ?`;
+    let whereClause = '';
+    if (Array.isArray(identifierFields) && identifierFields.length > 0) {
+      whereClause = identifierFields
+        .map((field) => `${field} = ?`)
+        .join(' AND ');
+      whereClause = ` WHERE ${whereClause}`;
+    }
+
+    const updateQuery = `UPDATE ${tableName} SET ${setClause}${whereClause}`;
+
     const [result] = await executeQuery(updateQuery, [
       ...Object.values(data),
-      identifierValue,
+      ...(Array.isArray(identifierValues) ? identifierValues : []),
     ]);
 
     return result;
@@ -49,10 +58,24 @@ export async function updateData(
   }
 }
 
-export async function deleteData(tableName, identifierField, identifierValue) {
+export async function deleteData(
+  tableName,
+  identifierFields,
+  identifierValues
+) {
   try {
-    const deleteQuery = `DELETE FROM ${tableName} WHERE ${identifierField} = ?`;
-    const [result] = await executeQuery(deleteQuery, [identifierValue]);
+    let whereClause = '';
+    if (Array.isArray(identifierFields) && identifierFields.length > 0) {
+      whereClause = identifierFields
+        .map((field) => `${field} = ?`)
+        .join(' AND ');
+      whereClause = ` WHERE ${whereClause}`;
+    }
+
+    const deleteQuery = `DELETE FROM ${tableName}${whereClause}`;
+    const [result] = await executeQuery(deleteQuery, [
+      ...(Array.isArray(identifierValues) ? identifierValues : []),
+    ]);
 
     return result;
   } catch (error) {
