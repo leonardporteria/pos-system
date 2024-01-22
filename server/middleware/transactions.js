@@ -27,6 +27,14 @@ export async function selectTransactions(req, res, next) {
       );
 
       transaction.total_amount = rows[0].grand_total || 0;
+
+      await executeQuery(
+        `
+    UPDATE transactions
+    SET total_amount = ${transaction.total_amount}
+    WHERE transaction_id = '${transaction.transaction_id}'
+    `
+      );
     }
 
     res.json(transactions);
