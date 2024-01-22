@@ -9,7 +9,6 @@ const AddTransactionDetails = ({ onClose, onInsert }) => {
     transaction_id: '',
     product_id: '',
     quantity: '',
-    subtotal: '',
   });
 
   const [formErrors, setFormErrors] = useState({});
@@ -119,17 +118,6 @@ const AddTransactionDetails = ({ onClose, onInsert }) => {
             required
           />
           <span>{formErrors.quantity}</span>
-        </div>
-
-        <div>
-          <label htmlFor='subtotal'>Subtotal</label>
-          <input
-            type='number'
-            name='subtotal'
-            onChange={handleChange}
-            required
-          />
-          <span>{formErrors.subtotal}</span>
         </div>
 
         <span>
@@ -263,18 +251,6 @@ const EditTransactionDetails = ({
           <span>{formErrors.quantity}</span>
         </div>
 
-        <div>
-          <label htmlFor='subtotal'>Subtotal</label>
-          <input
-            type='number'
-            name='subtotal'
-            value={editedData.subtotal}
-            onChange={handleChange}
-            required
-          />
-          <span>{formErrors.subtotal}</span>
-        </div>
-
         <span>
           <input type='submit' value='Confirm' onClick={handleConfirm} />
           <input type='submit' value='Close' onClick={onClose} />
@@ -352,12 +328,7 @@ const TransactionDetails = () => {
   };
 
   const handleInsert = (insertData) => {
-    const requiredFields = [
-      'transaction_id',
-      'product_id',
-      'quantity',
-      'subtotal',
-    ];
+    const requiredFields = ['transaction_id', 'product_id', 'quantity'];
 
     const hasEmptyField = requiredFields.some((field) => !insertData[field]);
 

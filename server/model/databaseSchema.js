@@ -111,7 +111,7 @@ const createQueries = [
         transaction_id CHAR(12) PRIMARY KEY,
         transaction_datetime DATETIME DEFAULT (CURRENT_TIMESTAMP),
         payment_method VARCHAR(255) NOT NULL,
-        total_amount INT NOT NULL,
+        total_amount INT,
         employee_id CHAR(10) NOT NULL,
         FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
     );

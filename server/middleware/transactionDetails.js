@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import executeQuery from '../utils/executeQuery.js';
+
 import {
   selectData,
   insertData,
@@ -23,6 +25,17 @@ export async function selectTransactionDetails(req, res, next) {
 
 export async function insertTransactionDetail(req, res, next) {
   try {
+    const [rows] = await executeQuery(
+      `
+      SELECT new_selling_price
+      FROM product_history
+      WHERE product_id = '${req.body.product_id}'
+      `
+    );
+
+    req.body.subtotal =
+      req.body.quantity * parseFloat(rows[0].new_selling_price);
+
     const result = await insertData(tableName, req.body);
     console.log('Data inserted successfully:', result);
     res.json({
@@ -37,6 +50,17 @@ export async function insertTransactionDetail(req, res, next) {
 
 export async function updateTransactionDetail(req, res, next) {
   try {
+    const [rows] = await executeQuery(
+      `
+      SELECT new_selling_price
+      FROM product_history
+      WHERE product_id = '${req.body.product_id}'
+      `
+    );
+
+    req.body.subtotal =
+      req.body.quantity * parseFloat(rows[0].new_selling_price);
+
     const result = await updateData(
       tableName,
       req.body,

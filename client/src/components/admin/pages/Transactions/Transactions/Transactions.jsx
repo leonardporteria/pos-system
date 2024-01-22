@@ -61,11 +61,13 @@ const AddTransactions = ({ onClose, onInsert }) => {
 
       <form className='Transactions__Add' onSubmit={handleConfirm}>
         <div>
-          <label htmlFor='transaction_id'>ID</label>
+          <label htmlFor='transaction_id'>Transaction ID [TRANS-######]</label>
           <input
             type='text'
             name='transaction_id'
             onChange={handleChange}
+            pattern='^TRANS-\d{6}$'
+            placeholder='Format: TRANS-######'
             required
           />
           <span>{formErrors.transaction_id}</span>

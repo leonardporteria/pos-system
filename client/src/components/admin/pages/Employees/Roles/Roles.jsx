@@ -45,39 +45,49 @@ const AddRoles = ({ onClose, onInsert }) => {
 
       <form className='Roles__Add' onSubmit={handleConfirm}>
         <div>
-          <label htmlFor='role_id'>id</label>
-          <input type='text' name='role_id' onChange={handleChange} required />
+          <label htmlFor='role_id'>Role ID</label>
+          <input
+            type='text'
+            name='role_id'
+            onChange={handleChange}
+            pattern='^ROLE-\d{4}$'
+            placeholder='Format: ROLE-####'
+            required
+          />
           <span>{formErrors.role_id}</span>
         </div>
 
         <div>
-          <label>name</label>
+          <label>Role Name</label>
           <input
             type='text'
             name='role_name'
             onChange={handleChange}
+            placeholder='Role Name'
             required
           />
           <span>{formErrors.role_name}</span>
         </div>
 
         <div>
-          <label>description</label>
+          <label>Role Description</label>
           <input
             type='text'
             name='description'
             onChange={handleChange}
+            placeholder='Role Description'
             required
           />
           <span>{formErrors.description}</span>
         </div>
 
         <div>
-          <label>permission</label>
+          <label>Role Permission</label>
           <input
             type='text'
             name='permission'
             onChange={handleChange}
+            placeholder='Role Permission'
             required
           />
           <span>{formErrors.permission}</span>
@@ -140,48 +150,53 @@ const EditRoles = ({ onClose, roleData, onSave }) => {
 
       <form className='Roles__Edit'>
         <div>
-          <label htmlFor='role_id'>id</label>
+          <label htmlFor='role_id'>Role ID</label>
           <input
             type='text'
             name='role_id'
             value={editedData.role_id}
             onChange={handleChange}
+            pattern='^ROLE-\d{4}$'
+            placeholder='Format: ROLE-####'
             disabled
           />
           <span>{formErrors.role_id}</span>
         </div>
 
         <div>
-          <label htmlFor='role_name'>name</label>
+          <label htmlFor='role_name'>Role Name</label>
           <input
             type='text'
             name='role_name'
             value={editedData.role_name}
             onChange={handleChange}
+            placeholder='Role Name'
             required
           />
           <span>{formErrors.role_name}</span>
         </div>
 
         <div>
-          <label htmlFor='description'>description</label>
+          <label htmlFor='description'>Role Description</label>
           <input
             type='text'
             name='description'
             value={editedData.description}
             onChange={handleChange}
+            placeholder='Role Description'
             required
           />
           <span>{formErrors.description}</span>
         </div>
 
         <div>
-          <label htmlFor='permission'>permission</label>
+          <label htmlFor='permission'>Role Permission</label>
           <input
             type='text'
             name='permission'
             value={editedData.permission}
             onChange={handleChange}
+            placeholder='Role Permission'
             required
           />
           <span>{formErrors.permission}</span>

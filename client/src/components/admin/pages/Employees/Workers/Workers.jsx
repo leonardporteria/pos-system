@@ -67,29 +67,44 @@ const AddWorkers = ({ onClose, onInsert }) => {
             type='text'
             name='employee_id'
             onChange={handleChange}
+            pattern='^EMP-\d{6}$'
+            placeholder='Format: EMP-######'
             required
           />
           <span>{formErrors.employee_id}</span>
         </div>
 
         <div>
-          <label htmlFor='name'>Name</label>
-          <input type='text' name='name' onChange={handleChange} required />
+          <label htmlFor='name'>Worker Name</label>
+          <input
+            type='text'
+            name='name'
+            onChange={handleChange}
+            placeholder='Worker Name'
+            required
+          />
           <span>{formErrors.name}</span>
         </div>
 
         <div>
-          <label htmlFor='username'>Username</label>
-          <input type='text' name='username' onChange={handleChange} required />
+          <label htmlFor='username'>Worker Username</label>
+          <input
+            type='text'
+            name='username'
+            onChange={handleChange}
+            placeholder='Worker Name'
+            required
+          />
           <span>{formErrors.username}</span>
         </div>
 
         <div>
-          <label htmlFor='password'>Password</label>
+          <label htmlFor='password'>Worker Password</label>
           <input
             type='password'
             name='password'
             onChange={handleChange}
+            placeholder='Worker Password'
             required
           />
           <span>{formErrors.password}</span>
@@ -101,6 +116,7 @@ const AddWorkers = ({ onClose, onInsert }) => {
             type='text'
             name='hourly_wage'
             onChange={handleChange}
+            placeholder='Hourly Wage'
             required
           />
           <span>{formErrors.hourly_wage}</span>
@@ -118,7 +134,7 @@ const AddWorkers = ({ onClose, onInsert }) => {
         </div>
 
         <div>
-          <label htmlFor='role_id'>Role ID</label>
+          <label htmlFor='role_id'>Select Role ID</label>
           <select
             name='role_id'
             onChange={handleChange}
@@ -464,7 +480,7 @@ const Workers = () => {
                 <td>{worker.employee_id}</td>
                 <td>{worker.name}</td>
                 <td>{worker.username}</td>
-                <td>{worker.password}</td>
+                <td>{worker.password.replace(/./g, '*')}</td>
                 <td>{worker.hourly_wage}</td>
                 <td>{worker.work_schedule}</td>
                 <td>{worker.role_id}</td>
