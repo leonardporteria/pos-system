@@ -65,6 +65,20 @@ import {
   deleteEmployee,
 } from '../middleware/employees.js';
 
+import {
+  insertTransaction,
+  selectTransactions,
+  updateTransaction,
+  deleteTransaction,
+} from '../middleware/transactions.js';
+
+import {
+  insertTransactionDetail,
+  selectTransactionDetails,
+  updateTransactionDetail,
+  deleteTransactionDetail,
+} from '../middleware/transactionDetails.js';
+
 const adminRouter = express.Router();
 
 /**
@@ -184,6 +198,32 @@ adminRouter.post('/admin/roles', insertRole);
 adminRouter.put('/admin/roles/:role_id', updateRole);
 // * DELETE ONE ROLES
 adminRouter.delete('/admin/roles/:role_id', deleteRole);
+
+// ? TRANSACTIONS
+// * GET ALL TRANSACTIONS
+adminRouter.get('/admin/transactions', selectTransactions);
+// * INSERT NEW TRANSACTIONS
+adminRouter.post('/admin/transactions', insertTransaction);
+// * EDIT ONE TRANSACTIONS
+adminRouter.put('/admin/transactions/:transaction_id', updateTransaction);
+// * DELETE ONE TRANSACTIONS
+adminRouter.delete('/admin/transactions/:transaction_id', deleteTransaction);
+
+// ? TRANSCATION DETAILS
+// * GET ALL TRANSCATION DETAILS
+adminRouter.get('/admin/transaction_details', selectTransactionDetails);
+// * INSERT NEW TRANSCATION DETAILS
+adminRouter.post('/admin/transaction_details', insertTransactionDetail);
+// * EDIT ONE TRANSCATION DETAILS
+adminRouter.put(
+  '/admin/transaction_details/:transaction_id/:product_id',
+  updateTransactionDetail
+);
+// * DELETE ONE TRANSCATION DETAILS
+adminRouter.delete(
+  '/admin/transaction_details/:transaction_id/:product_id',
+  deleteTransactionDetail
+);
 
 // ?  ERROR HANDLER
 adminRouter.use(errorHandler);

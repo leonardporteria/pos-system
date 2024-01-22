@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Sales from './pages/Sales/Sales';
 import Employees from './pages/Employees/Employees';
-import Transactions from './pages/Transactions/Transactions';
+import TransactionManager from './pages/Transactions/TransactionManager';
 import Inventory from './pages/Inventory/Inventory';
 import Procurement from './pages/Procurement/Procurement';
 
@@ -91,7 +91,7 @@ const Admin = () => {
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='sales' element={<Sales />} />
           <Route path='employees/*' element={<Employees />} />
-          <Route path='transactions' element={<Transactions />} />
+          <Route path='transactions' element={<TransactionManager />} />
           <Route path='procurement/*' element={<Procurement />} />
           <Route path='inventory/*' element={<Inventory />} />
           <Route path='*' element={<Dashboard />} />

@@ -1,0 +1,187 @@
+@import '../../../../../variables';
+
+.Transactions {
+  display: grid;
+  grid-template-rows: 0.25fr 5fr;
+  height: 100%;
+  &__Filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+
+    &__Add {
+      > button {
+        cursor: pointer;
+        border: none;
+        padding: 0.5rem 1rem;
+        background-color: $gray-800;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+
+  &__Table {
+    margin: 0 1rem 1rem 0;
+    overflow-y: scroll;
+    max-height: 100%;
+    border: 1px solid $gray-800;
+
+    > table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      position: relative;
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid $gray-800;
+      }
+
+      th {
+        background-color: $gray-200;
+        text-align: center;
+        position: sticky;
+        top: 0;
+      }
+
+      td {
+        > button {
+          margin-right: 1rem;
+          cursor: pointer;
+          border: none;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+
+          &:first-child {
+            background-color: $gray-800;
+          }
+
+          &:nth-child(2) {
+            background-color: $gray-500;
+          }
+        }
+      }
+    }
+  }
+
+  &__Modal {
+    &__Add {
+      display: grid;
+      gap: 1rem;
+      > h1 {
+        justify-self: center;
+      }
+
+      > form {
+        display: grid;
+        gap: 1rem;
+        > div {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+          > input {
+            padding: 0.25rem 0.5rem;
+          }
+        }
+
+        > span {
+          justify-self: end;
+          display: flex;
+          gap: 1rem;
+          > input {
+            cursor: pointer;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+          }
+          > input:nth-last-child(1) {
+            background-color: $gray-200;
+            border: 1px solid $gray-800;
+            color: $gray-800;
+          }
+          > input:nth-last-child(2) {
+            background-color: $gray-800;
+          }
+        }
+      }
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    &__Edit {
+      display: grid;
+      gap: 1rem;
+      > h1 {
+        justify-self: center;
+      }
+
+      > form {
+        display: grid;
+        gap: 1rem;
+        > div {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+          > input {
+            padding: 0.25rem 0.5rem;
+          }
+        }
+
+        > span {
+          justify-self: end;
+          display: flex;
+          gap: 1rem;
+          > input {
+            cursor: pointer;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+          }
+          > input:nth-last-child(1) {
+            background-color: $gray-200;
+            border: 1px solid $gray-800;
+            color: $gray-800;
+          }
+          > input:nth-last-child(2) {
+            background-color: $gray-800;
+          }
+        }
+      }
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    &__Remove {
+      display: grid;
+      gap: 1rem;
+      > p {
+        justify-self: center;
+      }
+      > span {
+        justify-self: center;
+        display: flex;
+        gap: 1rem;
+        > button {
+          cursor: pointer;
+          border: none;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+          font-weight: 600;
+        }
+        > button:nth-last-child(1) {
+          background-color: $gray-200;
+          border: 1px solid $gray-800;
+          color: $gray-800;
+        }
+        > button:nth-last-child(2) {
+          background-color: $gray-800;
+        }
+      }
+
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+  }
+}
