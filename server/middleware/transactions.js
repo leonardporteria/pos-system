@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import executeQuery from '../utils/executeQuery.js';
+
 import {
   selectData,
   insertData,
@@ -14,6 +16,19 @@ export async function selectTransactions(req, res, next) {
   try {
     const transactions = await selectData(tableName);
     console.log('Data fetched successfully:', transactions);
+
+    for (const transaction of transactions) {
+      const [rows] = await executeQuery(
+        `
+    SELECT SUM(subtotal) AS grand_total
+    FROM transaction_details
+    WHERE transaction_id = '${transaction.transaction_id}'
+    `
+      );
+
+      transaction.total_amount = rows[0].grand_total || 0;
+    }
+
     res.json(transactions);
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -23,6 +38,16 @@ export async function selectTransactions(req, res, next) {
 
 export async function insertTransaction(req, res, next) {
   try {
+    const [rows] = await executeQuery(
+      `
+      SELECT SUM(subtotal) AS grand_total
+      FROM transaction_details
+      WHERE transaction_id = '${req.body.transaction_id}'
+      `
+    );
+
+    req.body.total_amount = rows[0].grand_total || 0;
+
     const result = await insertData(tableName, req.body);
     console.log('Data inserted successfully:', result);
     res.json({

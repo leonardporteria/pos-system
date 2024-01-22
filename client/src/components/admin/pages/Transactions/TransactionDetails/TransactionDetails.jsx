@@ -429,7 +429,9 @@ const TransactionDetails = () => {
           </thead>
           <tbody>
             {transactionDetailsData.map((transactionDetails) => (
-              <tr key={transactionDetails.transaction_id}>
+              <tr
+                key={`${transactionDetails.transaction_id}-${transactionDetails.product_id}`}
+              >
                 <td>{transactionDetails.transaction_id}</td>
                 <td>{transactionDetails.product_id}</td>
                 <td>{transactionDetails.quantity}</td>

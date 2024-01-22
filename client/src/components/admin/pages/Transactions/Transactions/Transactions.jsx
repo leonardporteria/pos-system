@@ -8,7 +8,6 @@ const AddTransactions = ({ onClose, onInsert }) => {
   const [transactionData, setTransactionData] = useState({
     transaction_id: '',
     payment_method: '',
-    total_amount: '',
     employee_id: '',
   });
 
@@ -82,17 +81,6 @@ const AddTransactions = ({ onClose, onInsert }) => {
             required
           />
           <span>{formErrors.payment_method}</span>
-        </div>
-
-        <div>
-          <label htmlFor='total_amount'>Total Amount</label>
-          <input
-            type='number'
-            name='total_amount'
-            onChange={handleChange}
-            required
-          />
-          <span>{formErrors.total_amount}</span>
         </div>
 
         <div>
@@ -209,18 +197,6 @@ const EditTransactions = ({ onClose, transactionData, onSave }) => {
         </div>
 
         <div>
-          <label htmlFor='total_amount'>Total Amount</label>
-          <input
-            type='number'
-            name='total_amount'
-            value={editedData.total_amount}
-            onChange={handleChange}
-            required
-          />
-          <span>{formErrors.total_amount}</span>
-        </div>
-
-        <div>
           <label htmlFor='employee_id'>Employee ID</label>
           <select
             name='employee_id'
@@ -308,12 +284,7 @@ const Transactions = () => {
   };
 
   const handleInsert = (insertData) => {
-    const requiredFields = [
-      'transaction_id',
-      'payment_method',
-      'total_amount',
-      'employee_id',
-    ];
+    const requiredFields = ['transaction_id', 'payment_method', 'employee_id'];
 
     const hasEmptyField = requiredFields.some((field) => !insertData[field]);
 

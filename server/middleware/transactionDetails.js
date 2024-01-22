@@ -27,14 +27,13 @@ export async function insertTransactionDetail(req, res, next) {
   try {
     const [rows] = await executeQuery(
       `
-      SELECT new_selling_price
-      FROM product_history
+      SELECT unit_price
+      FROM products
       WHERE product_id = '${req.body.product_id}'
       `
     );
 
-    req.body.subtotal =
-      req.body.quantity * parseFloat(rows[0].new_selling_price);
+    req.body.subtotal = req.body.quantity * parseFloat(rows[0].unit_price);
 
     const result = await insertData(tableName, req.body);
     console.log('Data inserted successfully:', result);
@@ -52,14 +51,13 @@ export async function updateTransactionDetail(req, res, next) {
   try {
     const [rows] = await executeQuery(
       `
-      SELECT new_selling_price
-      FROM product_history
+      SELECT unit_price
+      FROM products
       WHERE product_id = '${req.body.product_id}'
       `
     );
 
-    req.body.subtotal =
-      req.body.quantity * parseFloat(rows[0].new_selling_price);
+    req.body.subtotal = req.body.quantity * parseFloat(rows[0].unit_price);
 
     const result = await updateData(
       tableName,
