@@ -41,10 +41,6 @@ const TransactionManager = () => {
   return (
     <div className='TransactionManager'>
       <nav className='TransactionManager__Navbar'>
-        <h1 className='TransactionManager__Navbar__Title'>
-          SnapShop Transaction Manager
-        </h1>
-
         <div className='TransactionManager__Navbar__Links'>
           <NavLink tab='transactions' label='Transactions' />
           <NavLink tab='transaction_details' label='Transaction Details' />
