@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import executeQuery from '../utils/executeQuery.js';
+
 import {
   selectData,
   insertData,
@@ -23,6 +25,14 @@ export async function selectOrderDetails(req, res, next) {
 
 export async function insertOrderDetail(req, res, next) {
   try {
+    await executeQuery(
+      `
+      UPDATE product_inventory
+      SET current_stock = current_stock + ${req.body.order_quantity}
+      WHERE inventory_id ='${req.body.inventory_id}';      
+      `
+    );
+
     const result = await insertData(tableName, req.body);
     console.log('Data inserted successfully:', result);
     res.json({
