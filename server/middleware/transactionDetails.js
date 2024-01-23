@@ -35,6 +35,15 @@ export async function insertTransactionDetail(req, res, next) {
 
     req.body.subtotal = req.body.quantity * parseFloat(rows[0].unit_price);
 
+    await executeQuery(
+      `
+      UPDATE product_inventory
+      SET current_stock = current_stock - ${req.body.quantity},
+      last_stock_update = CURRENT_TIMESTAMP
+      WHERE product_id ='${req.body.product_id}';      
+      `
+    );
+
     const result = await insertData(tableName, req.body);
     console.log('Data inserted successfully:', result);
     res.json({
