@@ -15,6 +15,18 @@ const users = [
     password: process.env.ADMIN_PASSWORD,
     role: 'admin',
   },
+  {
+    id: 2,
+    username: 'manager',
+    password: 'password',
+    role: 'manager',
+  },
+  {
+    id: 3,
+    username: 'cashier',
+    password: 'password',
+    role: 'cashier',
+  },
 ];
 
 // Middleware to verify JWT

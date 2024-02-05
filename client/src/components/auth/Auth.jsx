@@ -27,11 +27,12 @@ const Auth = () => {
           userRole === 'admin' ? '/admin/dashboard' : `/${userRole}`;
         navigate(redirectPath);
       } else if (
-        !location.pathname.startsWith('/admin') &&
-        !location.pathname.startsWith('/manager') &&
-        !location.pathname.startsWith('/cashier')
+        (loginMode === 'admin' && !location.pathname.startsWith('/admin')) ||
+        (loginMode === 'manager' &&
+          !location.pathname.startsWith('/manager')) ||
+        (loginMode === 'cashier' && !location.pathname.startsWith('/cashier'))
       ) {
-        // If the path is not a protected route, redirect to the appropriate URL
+        // If the user's role matches the loginMode, but the path is not a protected route, redirect to the appropriate URL
         const redirectPath =
           userRole === 'admin' ? '/admin/dashboard' : `/${userRole}`;
         navigate(redirectPath);
