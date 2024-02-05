@@ -43,22 +43,27 @@ const AddProductCategory = ({ onClose, onInsert }) => {
 
       <form className='ProductCategories__Add' onSubmit={handleConfirm}>
         <div>
-          <label htmlFor='product_category_id'>id</label>
+          <label htmlFor='product_category_id'>
+            Product Category ID [PCAT-####]
+          </label>
           <input
             type='text'
             name='product_category_id'
             onChange={handleChange}
+            pattern='^PCAT-\d{4}$'
+            placeholder='Format: PCAT-####'
             required
           />
           <span>{formErrors.product_category_id}</span>
         </div>
 
         <div>
-          <label>name</label>
+          <label>Product Category Name</label>
           <input
             type='text'
             name='product_category_name'
             onChange={handleChange}
+            placeholder='Product Category Name'
             required
           />
           <span>{formErrors.product_category_name}</span>

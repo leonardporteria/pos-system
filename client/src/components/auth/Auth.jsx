@@ -20,20 +20,18 @@ const Auth = () => {
     if (token) {
       const decodedToken = jwtDecode(token);
       const userRole = decodedToken.role;
+      setLoginMode(userRole);
 
       if (userRole !== loginMode) {
-        // If the user's role doesn't match the current loginMode, redirect to the correct URL
-        const redirectPath =
-          userRole === 'admin' ? '/admin/dashboard' : `/${userRole}`;
+        const redirectPath = `/${userRole}`;
         navigate(redirectPath);
       } else if (
-        (loginMode === 'admin' && !location.pathname.startsWith('/admin')) ||
-        (loginMode === 'manager' &&
-          !location.pathname.startsWith('/manager')) ||
-        (loginMode === 'cashier' && !location.pathname.startsWith('/cashier'))
+        loginMode === 'admin' &&
+        location.pathname.startsWith('/admin')
       ) {
-        const redirectPath =
-          userRole === 'admin' ? '/admin/dashboard' : `/${userRole}`;
+        return;
+      } else {
+        const redirectPath = `/${userRole}`;
         navigate(redirectPath);
       }
     } else {

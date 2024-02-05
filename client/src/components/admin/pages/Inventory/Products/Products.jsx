@@ -71,6 +71,8 @@ const AddProducts = ({ onClose, onInsert }) => {
             name='product_id'
             value={productData.product_id}
             onChange={handleChange}
+            pattern='^PROD-\d{6}$'
+            placeholder='Format: PROD-######'
             required
           />
           <span>{formErrors.product_id}</span>

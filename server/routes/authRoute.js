@@ -76,7 +76,8 @@ authRouter.post('/auth', async (req, res) => {
   const user = users.find(
     (u) => u.username === username && u.password === password
   );
-
+  console.log(req.body);
+  console.log(user);
   if (!user) {
     return res.status(401).json({ message: 'Authentication failed' });
   }

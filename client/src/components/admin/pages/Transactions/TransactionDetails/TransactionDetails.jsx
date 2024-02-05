@@ -229,6 +229,7 @@ const EditTransactionDetails = ({
             onChange={handleChange}
             value={editedData.product_id}
             required
+            disabled
           >
             {productOptions.map((product) => (
               <option key={product.product_id} value={product.product_id}>
