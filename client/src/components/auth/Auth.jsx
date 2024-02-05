@@ -32,7 +32,6 @@ const Auth = () => {
           !location.pathname.startsWith('/manager')) ||
         (loginMode === 'cashier' && !location.pathname.startsWith('/cashier'))
       ) {
-        // If the user's role matches the loginMode, but the path is not a protected route, redirect to the appropriate URL
         const redirectPath =
           userRole === 'admin' ? '/admin/dashboard' : `/${userRole}`;
         navigate(redirectPath);
@@ -135,7 +134,7 @@ const Auth = () => {
           path='/cashier/*'
           element={localStorage.getItem('token') ? <Cashier /> : <NotFound />}
         />
-        <Route path='/*' element={<NotFound />} />
+        <Route path='/*' element={<div></div>} />
       </Routes>
     </div>
   );
