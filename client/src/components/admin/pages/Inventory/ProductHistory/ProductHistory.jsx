@@ -263,6 +263,7 @@ const EditProductHistory = ({ onClose, productHistoryData, onSave }) => {
             onChange={handleChange}
             value={editedData.product_id}
             required
+            disabled
           >
             <option value='' disabled>
               Select Product ID

@@ -1,26 +1,85 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
-
+import { jwtDecode } from 'jwt-decode';
 import Admin from '../admin/Admin';
 import Manager from '../manager/Manager';
 import Cashier from '../cashier/Cashier';
-
+import NotFound from '../error/NotFound';
 import './Auth.scss';
 
 const Auth = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [loginMode, setLoginMode] = useState('cashier');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const userRole = decodedToken.role;
+
+      if (userRole !== loginMode) {
+        // If the user's role doesn't match the current loginMode, redirect to the correct URL
+        const redirectPath =
+          userRole === 'admin' ? '/admin/dashboard' : `/${userRole}`;
+        navigate(redirectPath);
+      } else if (
+        !location.pathname.startsWith('/admin') &&
+        !location.pathname.startsWith('/manager') &&
+        !location.pathname.startsWith('/cashier')
+      ) {
+        // If the path is not a protected route, redirect to the appropriate URL
+        const redirectPath =
+          userRole === 'admin' ? '/admin/dashboard' : `/${userRole}`;
+        navigate(redirectPath);
+      }
+    } else {
+      navigate('/');
+    }
+  }, [navigate, location.pathname, loginMode]);
 
   const handleLogin = async () => {
-    console.log(loginMode);
-    navigate(`/${loginMode}`);
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password, role: loginMode }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const { token } = data;
+
+        localStorage.setItem('token', token);
+
+        const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+        const redirectPath =
+          decodedToken.role === 'admin'
+            ? '/admin/dashboard'
+            : `/${decodedToken.role}`;
+
+        navigate(redirectPath);
+      } else {
+        // Handle authentication error
+        console.error('Authentication failed');
+      }
+    } catch (error) {
+      console.error('Error during authentication:', error);
+    }
   };
 
   const shouldRenderLogin =
-    !location.pathname.startsWith('/admin') &&
-    !location.pathname.startsWith('/manager') &&
-    !location.pathname.startsWith('/cashier');
+    !localStorage.getItem('token') ||
+    (!location.pathname.startsWith('/admin') &&
+      !location.pathname.startsWith('/manager') &&
+      !location.pathname.startsWith('/cashier') &&
+      location.pathname !== '/*');
 
   return (
     <div className='Auth'>
@@ -34,8 +93,18 @@ const Auth = () => {
               : 'Admin Login'}
           </h1>
           <div className='Auth__Input'>
-            <input type='text' placeholder={`${loginMode} Name`} />
-            <input type='password' placeholder='Password' />
+            <input
+              type='text'
+              placeholder={`Username`}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type='password'
+              placeholder='Password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <button onClick={handleLogin}>Login</button>
           </div>
           <div className='Auth__Other'>
@@ -53,11 +122,19 @@ const Auth = () => {
         </>
       )}
       <Routes>
-        <Route path='/' element={<div>/</div>} />
-        <Route path='/*' element={<div>/as</div>} />
-        <Route path='/admin/*' element={<Admin />} />
-        <Route path='/manager/*' element={<Manager />} />
-        <Route path='/cashier/*' element={<Cashier />} />
+        <Route
+          path='/admin/*'
+          element={localStorage.getItem('token') ? <Admin /> : <NotFound />}
+        />
+        <Route
+          path='/manager/*'
+          element={localStorage.getItem('token') ? <Manager /> : <NotFound />}
+        />
+        <Route
+          path='/cashier/*'
+          element={localStorage.getItem('token') ? <Cashier /> : <NotFound />}
+        />
+        <Route path='/*' element={<NotFound />} />
       </Routes>
     </div>
   );
