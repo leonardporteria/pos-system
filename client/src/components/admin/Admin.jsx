@@ -1,6 +1,7 @@
-import { Route, Routes, Link, useMatch } from 'react-router-dom';
+import { Route, Routes, Link, useMatch, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { jwtDecode } from 'jwt-decode';
 
 import Dashboard from './pages/Dashboard/Dashboard';
 import Sales from './pages/Sales/Sales';
@@ -12,9 +13,11 @@ import Procurement from './pages/Procurement/Procurement';
 import './Admin.scss';
 
 const Admin = () => {
+  const navigate = useNavigate();
   const initialLocation = localStorage.getItem('currentPage') || 'Dashboard';
   const [location, setLocation] = useState(initialLocation);
   const [currentDate, setCurrentDate] = useState('');
+  const [username, setUsername] = useState('');
 
   const NavLink = ({ to, label }) => {
     const match = useMatch(to);
@@ -38,6 +41,11 @@ const Admin = () => {
     label: PropTypes.string.isRequired,
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
   useEffect(() => {
     const getCurrentDate = () => {
       const now = new Date();
@@ -50,7 +58,17 @@ const Admin = () => {
     };
 
     getCurrentDate();
-  }, []);
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const userRole = decodedToken.username;
+      setUsername(userRole);
+    } else {
+      navigate('/');
+    }
+  }, [navigate]);
 
   return (
     <div className='Admin'>
@@ -82,8 +100,9 @@ const Admin = () => {
       <div className='Admin__Dashboard'>
         <div className='Admin__Dashboard__Utils'>
           <h1>{location}</h1>
-          <select name='' id=''>
-            <option value=''>leonard porteria</option>
+          <select name='' id='' onChange={handleLogout}>
+            <option value=''>{username}</option>
+            <option value='logout'>Log Out</option>
           </select>
           <p>Date: {currentDate}</p>
         </div>
