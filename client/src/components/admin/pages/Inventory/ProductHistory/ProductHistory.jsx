@@ -72,11 +72,15 @@ const AddProductHistory = ({ onClose, onInsert }) => {
 
       <form className='ProductHistory__Add' onSubmit={handleConfirm}>
         <div>
-          <label htmlFor='product_history_id'>ID</label>
+          <label htmlFor='product_history_id'>
+            Product History ID [PHIST-#####]
+          </label>
           <input
             type='text'
             name='product_history_id'
             onChange={handleChange}
+            pattern='^PHIST-\d{5}$'
+            placeholder='Format: PHIST-#####'
             required
           />
           <span>{formErrors.product_history_id}</span>
@@ -245,7 +249,7 @@ const EditProductHistory = ({ onClose, productHistoryData, onSave }) => {
 
       <form className='ProductHistory__Edit'>
         <div>
-          <label htmlFor='product_history_id'>ID</label>
+          <label htmlFor='product_history_id'>History ID</label>
           <input
             type='text'
             name='product_history_id'
@@ -332,6 +336,7 @@ const EditProductHistory = ({ onClose, productHistoryData, onSave }) => {
             onChange={handleChange}
             value={editedData.employee_id}
             required
+            disabled
           >
             <option value='' disabled>
               Select Employee ID

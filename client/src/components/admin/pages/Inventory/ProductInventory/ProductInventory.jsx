@@ -61,11 +61,13 @@ const AddProductInventory = ({ onClose, onInsert }) => {
 
       <form className='ProductInventory__Add' onSubmit={handleConfirm}>
         <div>
-          <label htmlFor='inventory_id'>Inventory ID</label>
+          <label htmlFor='inventory_id'>Inventory ID [INV-######]</label>
           <input
             type='text'
             name='inventory_id'
             onChange={handleChange}
+            pattern='^INV-\d{6}$'
+            placeholder='Format: INV-######'
             required
           />
           <span>{formErrors.inventory_id}</span>
@@ -211,6 +213,7 @@ const EditProductInventory = ({ onClose, productInventoryData, onSave }) => {
             onChange={handleChange}
             value={editedData.product_id}
             required
+            disabled
           >
             <option value='' disabled>
               Select Product ID

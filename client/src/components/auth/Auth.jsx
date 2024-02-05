@@ -23,7 +23,10 @@ const Auth = () => {
       setLoginMode(userRole);
 
       if (userRole !== loginMode) {
-        const redirectPath = `/${userRole}`;
+        const redirectPath =
+          decodedToken.role === 'admin'
+            ? '/admin/dashboard'
+            : `/${decodedToken.role}`;
         navigate(redirectPath);
       } else if (
         loginMode === 'admin' &&

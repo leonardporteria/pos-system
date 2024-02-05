@@ -47,13 +47,14 @@ const AddSuppliers = ({ onClose, onInsert }) => {
 
       <form className='Suppliers__Add' onSubmit={handleConfirm}>
         <div>
-          <label htmlFor='supplier_id'>Supplier ID</label>
+          <label htmlFor='supplier_id'>Supplier ID [Format: SUP-######]</label>
           <input
             type='text'
             name='supplier_id'
             onChange={handleChange}
             required
-            placeholder='Enter supplier id'
+            pattern='^SUP-\d{6}$'
+            placeholder='Format: SUP-######'
           />
           <span>{formErrors.supplier_id}</span>
         </div>

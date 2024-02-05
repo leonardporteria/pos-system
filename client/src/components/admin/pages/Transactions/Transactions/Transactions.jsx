@@ -173,12 +173,13 @@ const EditTransactions = ({ onClose, transactionData, onSave }) => {
 
       <form className='Transactions__Edit'>
         <div>
-          <label htmlFor='transaction_id'>ID</label>
+          <label htmlFor='transaction_id'>Transaction ID</label>
           <input
             type='text'
             name='transaction_id'
             value={editedData.transaction_id}
             onChange={handleChange}
+            required
             disabled
           />
           <span>{formErrors.transaction_id}</span>

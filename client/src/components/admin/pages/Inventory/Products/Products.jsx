@@ -65,7 +65,7 @@ const AddProducts = ({ onClose, onInsert }) => {
 
       <form className='Products__Add' onSubmit={handleConfirm}>
         <div>
-          <label htmlFor='product_id'>ID</label>
+          <label htmlFor='product_id'>Product ID [PROD-######]</label>
           <input
             type='text'
             name='product_id'
@@ -243,25 +243,14 @@ const EditProducts = ({ onClose, productData, onSave }) => {
 
       <form className='Products__Edit'>
         <div>
-          <label htmlFor='product_id'>ID</label>
-          <input
-            type='text'
-            name='product_id'
-            value={editedData.product_id}
-            onChange={handleChange}
-            disabled
-          />
-          <span>{formErrors.product_id}</span>
-        </div>
-
-        <div>
-          <label htmlFor='product_id'>ID</label>
+          <label htmlFor='product_id'>Product ID</label>
           <input
             type='text'
             name='product_id'
             value={editedData.product_id}
             onChange={handleChange}
             required
+            disabled
           />
           <span>{formErrors.product_id}</span>
         </div>

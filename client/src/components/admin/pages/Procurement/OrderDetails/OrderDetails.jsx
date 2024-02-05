@@ -273,6 +273,7 @@ const EditOrderDetails = ({ onClose, orderDetailsData, onSave }) => {
             onChange={handleChange}
             value={editedData.inventory_id}
             required
+            disabled
           >
             <option value='' disabled>
               Select Inventory ID

@@ -59,8 +59,15 @@ const AddOrders = ({ onClose, onInsert }) => {
 
       <form className='Orders__Add' onSubmit={handleConfirm}>
         <div>
-          <label htmlFor='order_id'>Order ID</label>
-          <input type='text' name='order_id' onChange={handleChange} required />
+          <label htmlFor='order_id'>Order ID [ORDER-######]</label>
+          <input
+            type='text'
+            name='order_id'
+            onChange={handleChange}
+            required
+            pattern='^ORDER-\d{6}$'
+            placeholder='Format: ORDER-######'
+          />
           <span>{formErrors.order_id}</span>
         </div>
 
