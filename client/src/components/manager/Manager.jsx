@@ -5,7 +5,6 @@ import { jwtDecode } from 'jwt-decode';
 
 import SNAPSHOP_LOGO from '../../assets/snapshop-05.png';
 
-import Employees from './pages/Employees/Employees';
 import TransactionManager from './pages/Transactions/TransactionManager';
 import Inventory from './pages/Inventory/Inventory';
 import Procurement from './pages/Procurement/Procurement';
@@ -84,9 +83,6 @@ const Manager = () => {
           <NavLink to='/manager/inventory' label='Inventory'>
             Inventory
           </NavLink>
-          <NavLink to='/manager/employees' label='Employees'>
-            Employees
-          </NavLink>
           <NavLink to='/manager/procurement' label='Procurement'>
             Procurement
           </NavLink>
@@ -103,7 +99,6 @@ const Manager = () => {
           <p>Date: {currentDate}</p>
         </div>
         <Routes>
-          <Route path='employees/*' element={<Employees />} />
           <Route path='transactions' element={<TransactionManager />} />
           <Route path='procurement/*' element={<Procurement />} />
           <Route path='inventory/*' element={<Inventory />} />
