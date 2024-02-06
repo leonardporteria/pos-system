@@ -12,11 +12,11 @@ const authRouter = express.Router();
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 // * RATE LIMITER CONFIG
-const LIMITER_TIMEOUT = 1;
+const LIMITER_TIMEOUT = 15;
 const LIMITER_LIMIT = 5;
 
 const limiter = rateLimit({
-  windowMs: LIMITER_TIMEOUT * 60 * 10,
+  windowMs: LIMITER_TIMEOUT * 60 * 1000,
   max: LIMITER_LIMIT,
   message: 'Too many attempts, please try again later.',
 });
