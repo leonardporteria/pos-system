@@ -2,6 +2,8 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import rateLimit from 'express-rate-limit';
 
+import executeQuery from '../utils/executeQuery.js';
+
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -18,27 +20,6 @@ const limiter = rateLimit({
   max: LIMITER_LIMIT,
   message: 'Too many attempts, please try again later.',
 });
-
-const users = [
-  {
-    id: 1,
-    username: process.env.ADMIN_USERNAME,
-    password: process.env.ADMIN_PASSWORD,
-    role: 'admin',
-  },
-  {
-    id: 2,
-    username: 'manager',
-    password: 'password',
-    role: 'manager',
-  },
-  {
-    id: 3,
-    username: 'cashier',
-    password: 'password',
-    role: 'cashier',
-  },
-];
 
 // Middleware to verify JWT
 const verifyTokenAndRole = (role) => (req, res, next) => {
@@ -91,19 +72,63 @@ authRouter.get(
 
 // POST new auth (public route)
 authRouter.post('/auth', limiter, async (req, res) => {
-  // Handle authentication logic and issue JWT token
+  const [rows] = await executeQuery(`
+    SELECT * 
+    FROM employees;
+  `);
+
+  const usersFromDatabase = rows.map((employee, index) => {
+    let role = '';
+    switch (employee.role_id) {
+      case 'ROLE-0001':
+        role = 'admin';
+        break;
+      case 'ROLE-0002':
+        role = 'manager';
+        break;
+      case 'ROLE-0003':
+        role = 'cashier';
+        break;
+      default:
+        role = 'guest';
+    }
+    return {
+      id: index + 1,
+      username: employee.username,
+      password: employee.password,
+      role: role,
+    };
+  });
+
+  const adminIndex = usersFromDatabase.findIndex(
+    (user) => user.role === 'admin'
+  );
+
+  console.log(req.body);
+
+  const users = [
+    {
+      id: 0,
+      username: process.env.ADMIN_USERNAME,
+      password: process.env.ADMIN_PASSWORD,
+      role: 'admin',
+    },
+    ...usersFromDatabase.slice(0, adminIndex + 1),
+    ...usersFromDatabase.slice(adminIndex + 1),
+  ];
+
+  console.log(users);
+
   const { username, password, role } = req.body;
 
   const user = users.find(
     (u) => u.username === username && u.password === password
   );
-  console.log(req.body);
-  console.log(user);
+
   if (!user) {
     return res.status(401).json({ message: 'Authentication failed' });
   }
 
-  // Check if the user has the required role
   if (role !== user.role) {
     return res.status(403).json({ message: 'Unauthorized: Insufficient role' });
   }
