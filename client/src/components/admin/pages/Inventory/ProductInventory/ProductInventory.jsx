@@ -98,6 +98,7 @@ const AddProductInventory = ({ onClose, onInsert }) => {
             type='number'
             name='current_stock'
             onChange={handleChange}
+            placeholder='Current Stock'
             required
           />
           <span>{formErrors.current_stock}</span>
@@ -109,6 +110,7 @@ const AddProductInventory = ({ onClose, onInsert }) => {
             type='number'
             name='minimum_stock_level'
             onChange={handleChange}
+            placeholder='Minimum Stock'
             required
           />
           <span>{formErrors.minimum_stock_level}</span>
@@ -120,6 +122,7 @@ const AddProductInventory = ({ onClose, onInsert }) => {
             type='number'
             name='maximum_stock_level'
             onChange={handleChange}
+            placeholder='Maximum Stoc'
             required
           />
           <span>{formErrors.maximum_stock_level}</span>

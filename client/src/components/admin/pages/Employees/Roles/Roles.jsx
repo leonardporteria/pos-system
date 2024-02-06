@@ -45,7 +45,7 @@ const AddRoles = ({ onClose, onInsert }) => {
 
       <form className='Roles__Add' onSubmit={handleConfirm}>
         <div>
-          <label htmlFor='role_id'>Role ID</label>
+          <label htmlFor='role_id'>Role ID [ROLE-####]</label>
           <input
             type='text'
             name='role_id'
@@ -150,7 +150,7 @@ const EditRoles = ({ onClose, roleData, onSave }) => {
 
       <form className='Roles__Edit'>
         <div>
-          <label htmlFor='role_id'>Role ID</label>
+          <label htmlFor='role_id'>Role ID [ROLE-####]</label>
           <input
             type='text'
             name='role_id'

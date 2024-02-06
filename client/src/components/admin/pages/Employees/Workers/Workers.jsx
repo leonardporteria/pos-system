@@ -62,7 +62,7 @@ const AddWorkers = ({ onClose, onInsert }) => {
 
       <form className='Workers__Add' onSubmit={handleConfirm}>
         <div>
-          <label htmlFor='employee_id'>Employee ID</label>
+          <label htmlFor='employee_id'>Employee ID [EMP-######]</label>
           <input
             type='text'
             name='employee_id'
@@ -113,7 +113,7 @@ const AddWorkers = ({ onClose, onInsert }) => {
         <div>
           <label htmlFor='hourly_wage'>Hourly Wage</label>
           <input
-            type='text'
+            type='number'
             name='hourly_wage'
             onChange={handleChange}
             placeholder='Hourly Wage'
@@ -268,7 +268,7 @@ const EditWorkers = ({ onClose, workerData, onSave }) => {
         <div>
           <label htmlFor='hourly_wage'>Hourly Wage</label>
           <input
-            type='text'
+            type='number'
             name='hourly_wage'
             value={editedData.hourly_wage}
             onChange={handleChange}

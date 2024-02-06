@@ -85,6 +85,7 @@ const AddProducts = ({ onClose, onInsert }) => {
             name='barcode_id'
             value={productData.barcode_id}
             onChange={handleChange}
+            placeholder='Barcode ID'
             required
           />
           <span>{formErrors.barcode_id}</span>
@@ -97,6 +98,7 @@ const AddProducts = ({ onClose, onInsert }) => {
             name='barcode_type'
             value={productData.barcode_type}
             onChange={handleChange}
+            placeholder='Barcode Type'
             required
           />
           <span>{formErrors.barcode_type}</span>
@@ -109,6 +111,7 @@ const AddProducts = ({ onClose, onInsert }) => {
             name='product_name'
             value={productData.product_name}
             onChange={handleChange}
+            placeholder='Product Name'
             required
           />
           <span>{formErrors.product_name}</span>
@@ -117,10 +120,11 @@ const AddProducts = ({ onClose, onInsert }) => {
         <div>
           <label htmlFor='unit_price'>Unit Price</label>
           <input
-            type='text'
+            type='number'
             name='unit_price'
             value={productData.unit_price}
             onChange={handleChange}
+            placeholder='Unit Price'
             required
           />
           <span>{formErrors.unit_price}</span>
@@ -133,6 +137,7 @@ const AddProducts = ({ onClose, onInsert }) => {
             name='brand'
             value={productData.brand}
             onChange={handleChange}
+            placeholder='Brand'
             required
           />
           <span>{formErrors.brand}</span>
@@ -145,6 +150,7 @@ const AddProducts = ({ onClose, onInsert }) => {
             name='classification'
             value={productData.classification}
             onChange={handleChange}
+            placeholder='Classification'
             required
           />
           <span>{formErrors.classification}</span>
@@ -294,7 +300,7 @@ const EditProducts = ({ onClose, productData, onSave }) => {
         <div>
           <label htmlFor='unit_price'>Unit Price</label>
           <input
-            type='text'
+            type='number'
             name='unit_price'
             value={editedData.unit_price}
             onChange={handleChange}

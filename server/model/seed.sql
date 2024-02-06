@@ -1,0 +1,170 @@
+USE pos_system;
+
+INSERT INTO product_category (product_category_id, product_category_name)
+VALUES
+('PCAT-0001', 'Beverages'),
+('PCAT-0002', 'Snacks'),
+('PCAT-0003', 'Personal Care'),
+('PCAT-0004', 'Canned Goods'),
+('PCAT-0005', 'Dairy'),
+('PCAT-0006', 'Toiletries'),
+('PCAT-0007', 'Frozen Foods'), 
+('PCAT-0008', 'Office Supplies'),
+('PCAT-0009', 'Cigarettes'),
+('PCAT-0010', 'Confectionery');
+
+
+INSERT INTO products (product_id, barcode_id, barcode_type, product_name, unit_price, brand, classification, product_category_id)
+VALUES
+('PROD-000001', '456789123456', 'upc_a', 'Bottled Water', 1.5, 'AQUA', '500 ml', 'PCAT-0001'),
+('PROD-000002', '567891234567', 'upc_a', 'Cola', 2, 'SODA', '355 ml', 'PCAT-0001'),
+('PROD-000003', '678912345678', 'upc_a', 'Orange Juice', 3, 'CITRUS', '1 L', 'PCAT-0001'),
+('PROD-000004', '789123456789', 'upc_a', 'Iced Tea', 2.5, 'TEA', '450 ml', 'PCAT-0001'),
+('PROD-000005', '012345678912', 'upc_a', 'Potato Chips', 12, 'POTATO', '18 g', 'PCAT-0002'),
+('PROD-000006', '123456789123', 'upc_a', 'Cheese Puffs', 10, 'CHEESE', '20 g', 'PCAT-0002'),
+('PROD-000007', '234567891234', 'upc_a', 'Popcorn', 8, 'POP', '30 g', 'PCAT-0002'),
+('PROD-000008', '345678912345', 'upc_a', 'Pretzels', 15, 'PRETZ', '25 g', 'PCAT-0002'),
+('PROD-000009', '891234567890', 'upc_a', 'Shampoo', 8, 'CLEAN', '250 ml', 'PCAT-0003'),
+('PROD-000010', '912345678901', 'upc_a', 'Toothpaste', 3.5, 'SMILE', '150 g', 'PCAT-0003'),
+('PROD-000011', '123456789012', 'upc_a', 'Soap', 1.5, 'FRESH', '100 g', 'PCAT-0003'),
+('PROD-000012', '234567890123', 'upc_a', 'Deodorant', 5, 'FRESH', '50 ml', 'PCAT-0003'),
+('PROD-000013', '345678901234', 'upc_a', 'Canned Beans', 2.5, 'BEANS', '400 g', 'PCAT-0004'),
+('PROD-000014', '456789012345', 'upc_a', 'Canned Soup', 3, 'SOUP', '300 g', 'PCAT-0004'),
+('PROD-000015', '567890123456', 'upc_a', 'Canned Tomatoes', 1.8, 'TOMATO', '250 g', 'PCAT-0004'),
+('PROD-000016', '678901234567', 'upc_a', 'Canned Tuna', 4, 'TUNA', '150 g', 'PCAT-0004'),
+('PROD-000017', '789012345678', 'upc_a', 'Milk', 2.5, 'DAIRY', '1 L', 'PCAT-0005'),
+('PROD-000018', '890123456789', 'upc_a', 'Cheese', 5, 'CHEDDAR', '200 g', 'PCAT-0005'),
+('PROD-000019', '901234567890', 'upc_a', 'Yogurt', 1.8, 'YOGI', '150 g', 'PCAT-0005'),
+('PROD-000020', '012345678901', 'upc_a', 'Butter', 3, 'CREAMY', '250 g', 'PCAT-0005'),
+('PROD-000021', '123456789012', 'upc_a', 'Toilet Paper', 4.5, 'SOFT', '12 rolls', 'PCAT-0006'),
+('PROD-000022', '234567890123', 'upc_a', 'Shaving Cream', 2.5, 'SMOOTH', '150 ml', 'PCAT-0006'),
+('PROD-000023', '345678901234', 'upc_a', 'Toothbrush', 1.2, 'CLEAN', '1 pc', 'PCAT-0006'),
+('PROD-000024', '456789012345', 'upc_a', 'Facial Tissues', 3, 'GENTLE', '200 sheets', 'PCAT-0006'),
+('PROD-000025', '567890123456', 'upc_a', 'Frozen Pizza', 6, 'PIZZA', '400 g', 'PCAT-0007'),
+('PROD-000026', '678901234567', 'upc_a', 'Frozen Vegetables', 2.8, 'VEGGIE', '500 g', 'PCAT-0007'),
+('PROD-000027', '789012345678', 'upc_a', 'Ice Cream', 5, 'SWEET', '1 L', 'PCAT-0007'),
+('PROD-000028', '890123456789', 'upc_a', 'Frozen Chicken Nuggets', 4, 'CHICKEN', '300 g', 'PCAT-0007'),
+('PROD-000029', '901234567890', 'upc_a', 'Notebooks', 2.5, 'WRITE', '80 pages', 'PCAT-0008'),
+('PROD-000030', '012345678901', 'upc_a', 'Pens', 1, 'INKY', '5 pcs', 'PCAT-0008'),
+('PROD-000031', '123456789012', 'upc_a', 'Stapler', 4, 'FASTEN', '1 pc', 'PCAT-0008'),
+('PROD-000032', '234567890123', 'upc_a', 'Desk Organizer', 6, 'ORGANIZE', '1 pc', 'PCAT-0008'),
+('PROD-000033', '345678901234', 'upc_a', 'Regular Cigarettes', 8, 'BRAND1', '1 pack', 'PCAT-0009'),
+('PROD-000034', '456789012345', 'upc_a', 'Menthol Cigarettes', 8.5, 'BRAND2', '1 pack', 'PCAT-0009'),
+('PROD-000035', '567890123456', 'upc_a', 'Light Cigarettes', 9, 'BRAND3', '1 pack', 'PCAT-0009'),
+('PROD-000036', '678901234567', 'upc_a', 'Flavored Cigarettes', 10, 'BRAND4', '1 pack', 'PCAT-0009'),
+('PROD-000037', '789012345678', 'upc_a', 'Chocolate Bars', 2.5, 'SWEETIE', '50 g', 'PCAT-0010'),
+('PROD-000038', '4800016342899', 'upc_a', 'Ferrero Rocher Chocolate', 4, 'Ferrero', '200 g', 'PCAT-0010'),
+('PROD-000039', '4800128791022', 'upc_a', 'Haribo Goldbears Gummy Candy', 1.8, 'Haribo', '100 g', 'PCAT-0010'),
+('PROD-000040', '4800110096102', 'upc_a', 'Red Vines Licorice Twists', 3, 'Red Vines', '150 g', 'PCAT-0010'),
+('PROD-000041', '456789123456', 'upc_a', 'Bottled Water', 1.5, 'AQUA', '500 ml', 'PCAT-0001'),
+('PROD-000042', '567891234567', 'upc_a', 'Cola', 2, 'SODA', '355 ml', 'PCAT-0001'),
+('PROD-000043', '678912345678', 'upc_a', 'Orange Juice', 3, 'CITRUS', '1 L', 'PCAT-0001'),
+('PROD-000044', '789123456789', 'upc_a', 'Iced Tea', 2.5, 'TEA', '450 ml', 'PCAT-0001'),
+('PROD-000045', '012345678912', 'upc_a', 'Potato Chips', 12, 'POTATO', '18 g', 'PCAT-0002'),
+('PROD-000046', '123456789123', 'upc_a', 'Cheese Puffs', 10, 'CHEESE', '20 g', 'PCAT-0002'),
+('PROD-000047', '234567891234', 'upc_a', 'Popcorn', 8, 'POP', '30 g', 'PCAT-0002'),
+('PROD-000048', '345678912345', 'upc_a', 'Pretzels', 15, 'PRETZ', '25 g', 'PCAT-0002'),
+('PROD-000049', '891234567890', 'upc_a', 'Shampoo', 8, 'CLEAN', '250 ml', 'PCAT-0003'),
+('PROD-000050', '912345678901', 'upc_a', 'Toothpaste', 3.5, 'SMILE', '150 g', 'PCAT-0003'),
+('PROD-000051', '123456789012', 'upc_a', 'Soap', 1.5, 'FRESH', '100 g', 'PCAT-0003'),
+('PROD-000052', '234567890123', 'upc_a', 'Deodorant', 5, 'FRESH', '50 ml', 'PCAT-0003'),
+('PROD-000053', '345678901234', 'upc_a', 'Canned Beans', 2.5, 'BEANS', '400 g', 'PCAT-0004'),
+('PROD-000054', '456789012345', 'upc_a', 'Canned Soup', 3, 'SOUP', '300 g', 'PCAT-0004'),
+('PROD-000055', '567890123456', 'upc_a', 'Canned Tomatoes', 1.8, 'TOMATO', '250 g', 'PCAT-0004'),
+('PROD-000056', '678901234567', 'upc_a', 'Canned Tuna', 4, 'TUNA', '150 g', 'PCAT-0004'),
+('PROD-000057', '789012345678', 'upc_a', 'Milk', 2.5, 'DAIRY', '1 L', 'PCAT-0005'),
+('PROD-000058', '890123456789', 'upc_a', 'Cheese', 5, 'CHEDDAR', '200 g', 'PCAT-0005'),
+('PROD-000059', '901234567890', 'upc_a', 'Yogurt', 1.8, 'YOGI', '150 g', 'PCAT-0005'),
+('PROD-000060', '012345678901', 'upc_a', 'Butter', 3, 'CREAMY', '250 g', 'PCAT-0005'),
+('PROD-000061', '123456789012', 'upc_a', 'Toilet Paper', 4.5, 'SOFT', '12 rolls', 'PCAT-0006'),
+('PROD-000062', '234567890123', 'upc_a', 'Shaving Cream', 2.5, 'SMOOTH', '150 ml', 'PCAT-0006'),
+('PROD-000063', '345678901234', 'upc_a', 'Toothbrush', 1.2, 'CLEAN', '1 pc', 'PCAT-0006'),
+('PROD-000064', '456789012345', 'upc_a', 'Facial Tissues', 3, 'GENTLE', '200 sheets', 'PCAT-0006'),
+('PROD-000065', '567890123456', 'upc_a', 'Frozen Pizza', 6, 'PIZZA', '400 g', 'PCAT-0007'),
+('PROD-000066', '678901234567', 'upc_a', 'Frozen Vegetables', 2.8, 'VEGGIE', '500 g', 'PCAT-0007'),
+('PROD-000067', '789012345678', 'upc_a', 'Ice Cream', 5, 'SWEET', '1 L', 'PCAT-0007'),
+('PROD-000068', '890123456789', 'upc_a', 'Frozen Chicken Nuggets', 4, 'CHICKEN', '300 g', 'PCAT-0007'),
+('PROD-000069', '901234567890', 'upc_a', 'Notebooks', 2.5, 'WRITE', '80 pages', 'PCAT-0008'),
+('PROD-000070', '012345678901', 'upc_a', 'Pens', 1, 'INKY', '5 pcs', 'PCAT-0008'),
+('PROD-000071', '123456789012', 'upc_a', 'Stapler', 4, 'FASTEN', '1 pc', 'PCAT-0008'),
+('PROD-000072', '234567890123', 'upc_a', 'Desk Organizer', 6, 'ORGANIZE', '1 pc', 'PCAT-0008'),
+('PROD-000073', '345678901234', 'upc_a', 'Regular Cigarettes', 8, 'BRAND1', '1 pack', 'PCAT-0009'),
+('PROD-000074', '456789012345', 'upc_a', 'Menthol Cigarettes', 8.5, 'BRAND2', '1 pack', 'PCAT-0009'),
+('PROD-000075', '567890123456', 'upc_a', 'Light Cigarettes', 9, 'BRAND3', '1 pack', 'PCAT-0009'),
+('PROD-000076', '678901234567', 'upc_a', 'Flavored Cigarettes', 10, 'BRAND4', '1 pack', 'PCAT-0009'),
+('PROD-000077', '789012345678', 'upc_a', 'Chocolate Bars', 2.5, 'SWEETIE', '50 g', 'PCAT-0010'),
+('PROD-000078', '890123456789', 'upc_a', 'Candy Assortment', 4, 'MIXED', '200 g', 'PCAT-0010'),
+('PROD-000079', '901234567890', 'upc_a', 'Gummy Bears', 1.8, 'GUMMY', '100 g', 'PCAT-0010'),
+('PROD-000080', '012345678901', 'upc_a', 'Licorice Twists', 3, 'TWISTY', '150 g', 'PCAT-0010');
+
+
+INSERT INTO product_inventory (inventory_id, product_id, current_stock, minimum_stock_level, maximum_stock_level, last_stock_update)
+VALUES
+('INV-000001', 'PROD-000001', 100, 20, 150, '2024-02-06'),
+('INV-000002', 'PROD-000002', 150, 30, 200, '2024-02-06'),
+('INV-000003', 'PROD-000003', 80, 15, 120, '2024-02-06'),
+('INV-000004', 'PROD-000004', 120, 25, 180, '2024-02-06'),
+('INV-000005', 'PROD-000005', 200, 40, 250, '2024-02-06'),
+('INV-000006', 'PROD-000006', 180, 35, 220, '2024-02-06'),
+('INV-000007', 'PROD-000007', 100, 20, 150, '2024-02-06'),
+('INV-000008', 'PROD-000008', 150, 30, 200, '2024-02-06'),
+('INV-000009', 'PROD-000009', 90, 18, 130, '2024-02-06'),
+('INV-000010', 'PROD-000010', 120, 25, 180, '2024-02-06'),
+('INV-000011', 'PROD-000011', 70, 14, 100, '2024-02-06'),
+('INV-000012', 'PROD-000012', 110, 22, 160, '2024-02-06'),
+('INV-000013', 'PROD-000013', 180, 35, 220, '2024-02-06'),
+('INV-000014', 'PROD-000014', 120, 25, 180, '2024-02-06'),
+('INV-000015', 'PROD-000015', 90, 18, 130, '2024-02-06'),
+('INV-000016', 'PROD-000016', 150, 30, 200, '2024-02-06'),
+('INV-000017', 'PROD-000017', 200, 40, 250, '2024-02-06'),
+('INV-000018', 'PROD-000018', 180, 35, 220, '2024-02-06'),
+('INV-000019', 'PROD-000019', 120, 25, 180, '2024-02-06'),
+('INV-000020', 'PROD-000020', 150, 30, 200, '2024-02-06'),
+('INV-000021', 'PROD-000021', 100, 20, 150, '2024-02-06'),
+('INV-000022', 'PROD-000022', 130, 26, 190, '2024-02-06'),
+('INV-000023', 'PROD-000023', 70, 14, 100, '2024-02-06'),
+('INV-000024', 'PROD-000024', 110, 22, 160, '2024-02-06'),
+('INV-000025', 'PROD-000025', 180, 35, 220, '2024-02-06'),
+('INV-000026', 'PROD-000026', 120, 25, 180, '2024-02-06'),
+('INV-000027', 'PROD-000027', 90, 18, 130, '2024-02-06'),
+('INV-000028', 'PROD-000028', 150, 30, 200, '2024-02-06'),
+('INV-000029', 'PROD-000029', 200, 40, 250, '2024-02-06'),
+('INV-000030', 'PROD-000030', 180, 35, 220, '2024-02-06'),
+('INV-000031', 'PROD-000031', 120, 25, 180, '2024-02-06'),
+('INV-000032', 'PROD-000032', 150, 30, 200, '2024-02-06'),
+('INV-000033', 'PROD-000033', 100, 20, 150, '2024-02-06'),
+('INV-000034', 'PROD-000034', 130, 26, 190, '2024-02-06'),
+('INV-000035', 'PROD-000035', 70, 14, 100, '2024-02-06'),
+('INV-000036', 'PROD-000036', 110, 22, 160, '2024-02-06'),
+('INV-000037', 'PROD-000037', 180, 35, 220, '2024-02-06'),
+('INV-000038', 'PROD-000038', 120, 25, 180, '2024-02-06'),
+('INV-000039', 'PROD-000039', 90, 18, 130, '2024-02-06'),
+('INV-000040', 'PROD-000040', 150, 30, 200, '2024-02-06');
+
+
+INSERT INTO suppliers (supplier_id, supplier_name, supplier_contact, supplier_telephone, supplier_address, supplier_email)
+VALUES
+  ('SUP-000001', 'ABC Suppliers', '09123456789', '0287654321', '123 Main Street, Cityville', 'abc.suppliers@gmail.com'),
+  ('SUP-000002', 'XYZ Distributors', '09234567890', '0321098765', '456 Oak Avenue, Townsville', 'xyz.distributors@gmail.com'),
+  ('SUP-000003', 'PQR Imports', '09345678901', '0456789012', '789 Pine Road, Villageton', 'pqr.imports@gmail.com'),
+  ('SUP-000004', 'LMN Traders', '09456789012', '0654321098', '321 Cedar Lane, Hamlet City', 'lmn.traders@gmail.com'),
+  ('SUP-000005', 'EFG Exporters', '09567890123', '0543210987', '987 Birch Street, Countryside', 'efg.exporters@gmail.com');
+  
+  
+INSERT INTO roles (role_id, role_name, description, permission)
+VALUES
+  ('ROLE-0001', 'admin', 'highest level', 'level10'),
+  ('ROLE-0002', 'manager', 'second to highest', 'level8'),
+  ('ROLE-0003', 'cashier', 'third to highest', 'level3');
+  
+INSERT INTO employees (employee_id, name, username, password, hourly_wage, work_schedule, role_id)
+VALUES
+  ('EMP-000001', 'Luke Gonzales', 'luke_gonzales', 'password123', 100, '09:00', 'ROLE-0001'),
+  ('EMP-000002', 'Emma Rodriguez', 'emma_rodriguez', 'pass456', 85, '10:00', 'ROLE-0002'),
+  ('EMP-000003', 'Caleb Martinez', 'caleb_martinez', 'secure789', 70, '07:00', 'ROLE-0003'),
+  ('EMP-000004', 'Olivia Baker', 'olivia_baker', 'password987', 70, '03:00', 'ROLE-0003'),
+  ('EMP-000005', 'Ethan Foster', 'ethan_foster', 'pass1234', 70, '11:00', 'ROLE-0003');
+  
+
+
+

@@ -112,6 +112,7 @@ const AddProductHistory = ({ onClose, onInsert }) => {
             type='number'
             name='old_bought_price'
             onChange={handleChange}
+            placeholder='Old Bought Price'
             required
           />
           <span>{formErrors.old_bought_price}</span>
@@ -123,6 +124,7 @@ const AddProductHistory = ({ onClose, onInsert }) => {
             type='number'
             name='new_bought_price'
             onChange={handleChange}
+            placeholder='New Bought price'
             required
           />
           <span>{formErrors.new_bought_price}</span>
@@ -134,6 +136,7 @@ const AddProductHistory = ({ onClose, onInsert }) => {
             type='number'
             name='old_selling_price'
             onChange={handleChange}
+            placeholder='Old Selling Price'
             required
           />
           <span>{formErrors.old_selling_price}</span>
@@ -145,6 +148,7 @@ const AddProductHistory = ({ onClose, onInsert }) => {
             type='number'
             name='new_selling_price'
             onChange={handleChange}
+            placeholder='New Selling Price'
             required
           />
           <span>{formErrors.new_selling_price}</span>

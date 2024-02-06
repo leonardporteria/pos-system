@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS product_category (
 
 CREATE TABLE IF NOT EXISTS products (
     product_id CHAR(11) PRIMARY KEY,
-    barcode_id INT NOT NULL,
+    barcode_id CHAR(80) NOT NULL,
     barcode_type CHAR(255) NOT NULL,
     product_name VARCHAR(255) NOT NULL,
     unit_price DECIMAL(8, 2) NULL,

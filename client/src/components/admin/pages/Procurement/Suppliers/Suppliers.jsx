@@ -66,7 +66,7 @@ const AddSuppliers = ({ onClose, onInsert }) => {
             name='supplier_name'
             onChange={handleChange}
             required
-            placeholder='Enter supplier name'
+            placeholder='Supplier name'
           />
           <span>{formErrors.supplier_name}</span>
         </div>
@@ -90,7 +90,7 @@ const AddSuppliers = ({ onClose, onInsert }) => {
             name='supplier_telephone'
             onChange={handleChange}
             required
-            placeholder='Enter supplier telephone number'
+            placeholder='Supplier telephone number'
           />
           <span>{formErrors.supplier_telephone}</span>
         </div>
@@ -114,7 +114,7 @@ const AddSuppliers = ({ onClose, onInsert }) => {
             name='supplier_address'
             onChange={handleChange}
             required
-            placeholder='Enter complete address'
+            placeholder='Somplete address'
           />
           <span>{formErrors.supplier_address}</span>
         </div>
@@ -195,7 +195,7 @@ const EditSuppliers = ({ onClose, supplierData, onSave }) => {
             value={editedData.supplier_name}
             onChange={handleChange}
             required
-            placeholder='Enter supplier name'
+            placeholder='Supplier name'
           />
           <span>{formErrors.supplier_name}</span>
         </div>
@@ -221,7 +221,7 @@ const EditSuppliers = ({ onClose, supplierData, onSave }) => {
             value={editedData.supplier_telephone}
             onChange={handleChange}
             required
-            placeholder='Enter supplier telephone number'
+            placeholder='Supplier telephone number'
           />
           <span>{formErrors.supplier_telephone}</span>
         </div>
@@ -247,7 +247,7 @@ const EditSuppliers = ({ onClose, supplierData, onSave }) => {
             value={editedData.supplier_address}
             onChange={handleChange}
             required
-            placeholder='Enter complete address'
+            placeholder='Somplete address'
           />
           <span>{formErrors.supplier_address}</span>
         </div>

@@ -142,6 +142,7 @@ const AddOrderDetails = ({ onClose, onInsert }) => {
             type='number'
             name='order_quantity'
             onChange={handleChange}
+            placeholder='Order Quantity'
             required
           />
           <span>{formErrors.order_quantity}</span>
