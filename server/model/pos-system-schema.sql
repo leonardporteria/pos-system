@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS suppliers (
 );
 
 CREATE TABLE IF NOT EXISTS orders (
-    order_id CHAR(11) PRIMARY KEY,
+    order_id CHAR(12) PRIMARY KEY,
     order_date DATE DEFAULT (CURRENT_DATE),
     employee_id CHAR(10) NOT NULL,
 	FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS product_inventory (
 );
 
 CREATE TABLE IF NOT EXISTS order_details (
-    order_id CHAR(11) NOT NULL,
+    order_id CHAR(12) NOT NULL,
     inventory_id CHAR(10) NOT NULL,
     expected_date DATE NOT NULL,
     actual_date DATE,

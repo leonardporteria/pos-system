@@ -9,17 +9,72 @@ const salesRouter = express.Router();
 // GET all sales
 salesRouter.get('/sales', async (req, res) => {
   try {
-    const [rows] = await executeQuery(
+    const [interest] = await executeQuery(
       `
-      SELECT transaction_datetime, SUM(total_amount) as total_sale
-      FROM transactions
-      GROUP BY transaction_id;  
+      SELECT 
+      ph.product_id,
+      p.product_name,
+      SUM(ph.new_selling_price - ph.new_bought_price) AS revenue
+      FROM 
+          product_history ph
+      JOIN 
+          products p ON ph.product_id = p.product_id
+      GROUP BY 
+          ph.product_id, p.product_name;
+      `
+    );
+
+    const [revenue] = await executeQuery(
+      `
+      SELECT 
+          p.product_id,
+          p.product_name,
+          SUM((ph.new_selling_price - ph.new_bought_price) * td.quantity) AS total_profit,
+          SUM(td.quantity) AS total_sold
+      FROM 
+          product_history ph
+      JOIN 
+          transaction_details td ON ph.product_id = td.product_id
+      JOIN
+          products p ON p.product_id = ph.product_id
+      GROUP BY 
+          p.product_id, p.product_name
+      ORDER BY 
+          total_sold DESC;
+      `
+    );
+
+    const [totalProfit] = await executeQuery(
+      `
+      SELECT 
+      SUM(total_profit) AS total_profit_all_products
+      FROM
+      (
+          SELECT 
+              p.product_id,
+              p.product_name,
+              SUM((ph.new_selling_price - ph.new_bought_price) * td.quantity) AS total_profit,
+              SUM(td.quantity) AS total_sold
+          FROM 
+              product_history ph
+          JOIN 
+              transaction_details td ON ph.product_id = td.product_id
+          JOIN
+              products p ON p.product_id = ph.product_id
+          GROUP BY 
+              p.product_id, p.product_name
+          ORDER BY 
+              total_sold DESC
+      ) AS subquery;
+  
       `
     );
 
     res.json({
-      message: 'SUM OF ALL SALES',
-      sumOfSales: rows,
+      message: 'SALES RESPONSE',
+      interest: interest,
+      revenue: revenue,
+      totalProfit: totalProfit,
     });
   } catch (error) {
     console.error('Error querying data:', error);

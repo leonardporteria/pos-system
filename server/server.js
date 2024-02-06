@@ -7,6 +7,7 @@ dotenv.config();
 import authRouter from './routes/authRoute.js';
 import adminRouter from './routes/adminRoute.js';
 import salesRouter from './routes/salesRoute.js';
+import dashboardRouter from './routes/dashboardRoute.js';
 
 import { createSchema } from './model/databaseSchema.js';
 
@@ -38,6 +39,7 @@ createSchema()
 app.use('/api', authRouter);
 app.use('/api', adminRouter);
 app.use('/api', salesRouter);
+app.use('/api', dashboardRouter);
 
 //* CONNECTION
 app.listen(PORT, () => {

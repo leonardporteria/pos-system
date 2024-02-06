@@ -1,0 +1,52 @@
+@import '../../../../variables';
+
+.Sales {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  &__Table {
+    > div {
+      overflow-y: scroll;
+      max-height: 84vh;
+      border: 1px solid $gray-800;
+      > table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        position: relative;
+
+        th,
+        td {
+          padding: 12px;
+          text-align: left;
+          border: 1px solid $gray-800;
+        }
+
+        th {
+          background-color: $gray-200;
+          text-align: center;
+          position: sticky;
+          top: 0;
+        }
+
+        td {
+          > button {
+            margin-right: 1rem;
+            cursor: pointer;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+
+            &:first-child {
+              background-color: $gray-800;
+            }
+
+            &:nth-child(2) {
+              background-color: $gray-500;
+            }
+          }
+        }
+      }
+    }
+  }
+}
