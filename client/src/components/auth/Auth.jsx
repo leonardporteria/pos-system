@@ -59,7 +59,6 @@ const Auth = () => {
         localStorage.setItem('token', token);
 
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
         const redirectPath =
           decodedToken.role === 'admin'
             ? '/admin/dashboard'
