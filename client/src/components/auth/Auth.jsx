@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+
+import SNAPSHOP_LOGO from '../../assets/snapshop-04.png';
+
 import Admin from '../admin/Admin';
 import Manager from '../manager/Manager';
 import Cashier from '../cashier/Cashier';
 import NotFound from '../error/NotFound';
+
 import './Auth.scss';
 
 const Auth = () => {
@@ -31,6 +35,11 @@ const Auth = () => {
       } else if (
         loginMode === 'admin' &&
         location.pathname.startsWith('/admin')
+      ) {
+        return;
+      } else if (
+        loginMode === 'manager' &&
+        location.pathname.startsWith('/manager')
       ) {
         return;
       } else {
@@ -67,9 +76,11 @@ const Auth = () => {
         navigate(redirectPath);
       } else {
         // Handle authentication error
+        alert('Authentication failed');
         console.error('Authentication failed');
       }
     } catch (error) {
+      alert(error);
       console.error('Error during authentication:', error);
     }
   };
@@ -85,6 +96,7 @@ const Auth = () => {
     <div className='Auth'>
       {shouldRenderLogin && (
         <>
+          <img src={SNAPSHOP_LOGO} alt='' />
           <h1>
             {loginMode === 'cashier'
               ? 'Cashier Login'
@@ -109,15 +121,17 @@ const Auth = () => {
           </div>
           <div className='Auth__Other'>
             <p>Login as</p>
-            {loginMode !== 'cashier' && (
-              <button onClick={() => setLoginMode('cashier')}>Cashier</button>
-            )}
-            {loginMode !== 'manager' && (
-              <button onClick={() => setLoginMode('manager')}>Manager</button>
-            )}
-            {loginMode !== 'admin' && (
-              <button onClick={() => setLoginMode('admin')}>Admin</button>
-            )}
+            <div>
+              {loginMode !== 'cashier' && (
+                <button onClick={() => setLoginMode('cashier')}>Cashier</button>
+              )}
+              {loginMode !== 'manager' && (
+                <button onClick={() => setLoginMode('manager')}>Manager</button>
+              )}
+              {loginMode !== 'admin' && (
+                <button onClick={() => setLoginMode('admin')}>Admin</button>
+              )}
+            </div>
           </div>
         </>
       )}

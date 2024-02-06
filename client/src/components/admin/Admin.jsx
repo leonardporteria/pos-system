@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { jwtDecode } from 'jwt-decode';
 
+import SNAPSHOP_LOGO from '../../assets/snapshop-05.png';
+
 import Dashboard from './pages/Dashboard/Dashboard';
 import Sales from './pages/Sales/Sales';
 import Employees from './pages/Employees/Employees';
@@ -73,7 +75,9 @@ const Admin = () => {
   return (
     <div className='Admin'>
       <nav className='Admin__Sidebar'>
-        <h1 className='Admin__Sidebar__Title'>SnapShop Admin Dashboard</h1>
+        <div className='Admin__Sidebar__Title'>
+          <img src={SNAPSHOP_LOGO} alt='' />
+        </div>
 
         <div className='Admin__Sidebar__Links'>
           <NavLink to='/admin/dashboard' label='Dashboard'>
